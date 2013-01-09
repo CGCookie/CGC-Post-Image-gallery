@@ -29,8 +29,7 @@ function pig_insert_attachment( $file_handler, $post_id, $setthumb='false' ) {
 function pig_upload_image() {
 
 	global $blog_id;
-	if ( isset( $_POST['pig_nonce'] ) && wp_verify_nonce( $_POST['pig_nonce'], 'pig-nonce' ) ) // if data is being sent
-		{
+	if ( isset( $_POST['pig_nonce'] ) && wp_verify_nonce( $_POST['pig_nonce'], 'pig-nonce' ) ) {
 
 		if ( ! is_user_logged_in() )
 			return;
@@ -92,7 +91,7 @@ function pig_upload_image() {
 					}
 				}
 
-				$permalink = get_permalink( $image_id );
+				$permalink  = get_permalink( $image_id );
 				$subsite_id = $blog_id;
 
 				// set the post meta that attaches it to its parent post
@@ -107,8 +106,8 @@ function pig_upload_image() {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
 				}
 
-				$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-featured" );
-				$gallery_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-large" );
+				$featured_image  = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-featured" );
+				$gallery_image   = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-large" );
 				$dashboard_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-dashboard" );
 				$portfolio_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-user" );
 
