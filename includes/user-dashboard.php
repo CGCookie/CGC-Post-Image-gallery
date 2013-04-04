@@ -53,7 +53,7 @@ function pig_user_dashboard_images() {
 								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div> 
 							</li>
 							<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
-								<a href="#image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
+								<a id="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
  								<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div> 
 							</li>							
@@ -111,7 +111,7 @@ function pig_image_edit_form() {
 function pig_image_remove_form() {
 	ob_start(); ?>
 	<div id="pig-image-delete-wrap">
-		<h3>Are you sure you want to delete</h3>
+		<h3 class="reveal-modal-header">Are you sure you want to delete?</h3>
 		<p><strong>Clicking yes will obliterate the data beyond recovery</strong></p>
 		<form id="pig-image-remove" action="" method="POST"/>
 			
@@ -120,8 +120,8 @@ function pig_image_remove_form() {
 			<input type="hidden" id="pig-delete-subsite-id" name="pig-subsite-id" value="" />
 			<input type="hidden" id="pig-delete-subsite-image-id" name="pig-subsite-image-id" value="" />
 			<input type="hidden" id="pig-delete-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
-			<a href="#" id="pig-image-delete-cancel" class="close">No, I am not sure</a>
-			<input type="submit" id="pig_remove_image" value="Yes, please remove the image" />
+			<input type="submit" id="pig_remove_image" value="Delete Image Forever" />
+			<a href="#" id="pig-image-delete-cancel" class="close cancel"><i class="icon-remove"></i> Wait, no!</a>			
 		</form>
 	</div><!--end #pig-image-delete-wrap-->
 	<?php
