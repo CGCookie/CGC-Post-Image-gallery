@@ -108,7 +108,7 @@ function pig_upload_image() {
 
 				$featured_image  = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-featured" );
 				$gallery_image   = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-grid-large" );
-				$dashboard_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-dashboard" );
+				$dashboard_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "medium-thumb" );
 				$portfolio_image = wp_get_attachment_image_src( get_post_thumbnail_id(  $image_id ), "pig-image-user" );
 
 				/************************************************
