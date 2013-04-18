@@ -37,7 +37,7 @@ function pig_display_gallery($post_id) {
 		// Reset Post Data
 	
 	} else {
-		return '<p>No images submitted yet</p>';
+		return '<p class="empty">No images submitted yet</p>';
 	}
 	
 	return $gallery;
