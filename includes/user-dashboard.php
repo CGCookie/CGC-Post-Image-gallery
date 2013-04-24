@@ -25,54 +25,64 @@ function pig_user_dashboard_images() {
 			// The Query
 			$the_query = new WP_Query($image_args);
 
-			echo '<h3 class="site-portfolio-name">' . $site->blogname . ' Images <span>- (<a href="' . network_home_url($site->path . 'profile/' . $current_user->user_login) . '">view gallery</a>)</span></h3>';
-			echo '<ul id="gallery" class="gallery clearfix">';
-			if($the_query->have_posts()) :
+		echo '<div class="site-portfolio">';		
+			if($the_query->have_posts()) : 
+				echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
+				echo '<span class="site-portfolio-controls">';
+					echo '<a href="' . network_home_url($site->path . 'profile/' . $current_user->user_login) . '"><i class="icon-eye-open"></i> view gallery</a>';
+					echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
+				echo '</span>';
+				echo '<div id="user-portfolio-images" class="gallery clearfix">';
 				// The Loop
 				while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-					<li>
+				<div class="pig-grid-image">
 						<a href="<?php echo get_post_meta(get_the_ID(), 'pig_image_url', true); ?>" title="View this image">
-							<?php if(get_the_post_thumbnail(get_the_ID(), 'pig-image-dashboard')) { ?>
-								<?php the_post_thumbnail('pig-image-dashboard'); ?>
+							<?php if(get_the_post_thumbnail(get_the_ID(), 'medium-thumb')) { ?>
+								<?php the_post_thumbnail('medium-thumb'); ?>
 							<?php } else { ?>
 								<img class="attachment-pig-image-dashboard" src="<?php echo get_post_meta(get_the_ID(), 'pig_dashboard_image_url', true); ?>"/>
 							<?php } ?>
 						</a>
-						<ul class="image-edit">
-							<li><a href="<?php echo get_post_meta(get_the_ID(), 'pig_image_url', true); ?>">view</a></li>
+						<ul class="gallery-image-controls">
 							<li id="<?php echo get_the_ID(); ?>" class="edit-image">
-								<a href="#image-edit-modal" name="image-edit-modal" title="Edit this Image">edit</a>
-								<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
+								<a id="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
+ 								<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 								<div class="image-title hidden"><?php echo get_the_title(); ?></div>
 								<div class="image-description hidden"><?php echo htmlentities(get_the_content()); ?></div>
 								<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
-								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div>
+								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div> 
 							</li>
 							<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
-								<a href="#image-delete-modal" name="image-delete-modal" title="Delete this Image">delete</a>
-								<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
-								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div>
-							</li>
+								<a href="#image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
+ 								<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
+								<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div> 
+							</li>							
 						</ul>
-					</li>
+					</div>
 				<?php 
-				endwhile; 			
-			endif;			
+				endwhile; 
+				echo '</div><!-- ends #user-portfolio-images -->'; // ends #user-portfolio-images
+			endif;
+
 			?>
-			<li class="add-image">
-				<a href="<?php echo $site->siteurl; ?>/gallery/submit-image" title="Submit a new image">Add Image</a>
-			</li>
-			</ul>
 			<?php
-			
+			if( !$the_query->have_posts()) :
+				echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
+				echo '<span class="site-portfolio-controls">';
+					echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
+				echo '</span>';					
+				echo '<p class="empty">You have no images uploaded to '. $site->blogname .'</p>';
+			endif;
+
+			echo '</div><!-- ends .site-portfolio -->'; // ends .site-portfolio
+		
 			// Reset Post Data
 			wp_reset_postdata();
 		}
-		
 	endforeach; // foreach sites
 
 	return ob_get_clean();
-}
+} 
 
 function pig_image_edit_form() {
 	ob_start(); ?>
@@ -90,7 +100,7 @@ function pig_image_edit_form() {
 		<label for="pig-image-desc">What software was used, how did you make it... things inquiring minds would want to know</label>
 		<input type="checkbox" id="pig-image-mature" name="pig-image-mature" value="1" />
 		<label for="pig-image-mature">Contains mature content?</label>
-		<input type="submit" id="pig_submit" value="Submit Update" />
+		<input type="submit" class="button" id="pig_submit" value="Submit Update" />
 		<a href="#" class="close" id="pig_cancel">Cancel</a>
 	</form>
 	
