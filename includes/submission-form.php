@@ -36,6 +36,7 @@ function pig_submission_form()
 		if(is_user_logged_in()) {		
 		
 			$form .= '<fieldset>';
+				$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
 				$form .= '<div>';
 					$form .= '<label for="pig_image_name">Image Name</label>';
 					$form .= '<input type="text" name="pig_image_name" id="pig_image_name"/>';
