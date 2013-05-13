@@ -31,8 +31,6 @@ function pig_display_gallery($post_id) {
 			wp_reset_postdata();		
 		$gallery .= '</ul>';
 		
-		$gallery .= '<a href="' . home_url() . '/images?parent_post=' . $post_id . '">View All User Images for this Tutorial</a>';
-
 		
 		// Reset Post Data
 	
