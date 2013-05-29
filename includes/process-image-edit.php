@@ -26,7 +26,7 @@ function pig_process_image_edit() {
 				wp_die( 'You do not have permission to edit this image.', 'Error' );
 
 			$image = get_post( $image_id );
-			
+
 			if ( empty( $image ) )
 				return;
 
@@ -88,7 +88,7 @@ function pig_process_image_edit() {
 				wp_die( 'You do not have permission to edit this image.', 'Error' );
 
 			$image = get_post( $image_id );
-			
+
 			if ( empty( $image ) )
 				return;
 
