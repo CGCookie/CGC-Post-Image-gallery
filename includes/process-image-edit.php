@@ -22,7 +22,7 @@ function pig_process_image_edit() {
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
 			$error    			= NULL;
 
-			if ( get_current_user_id() != get_post_field( 'post_author', $image_id ) )
+			if ( get_current_user_id() !== get_post_field( 'post_author', $image_id ) )
 				wp_die( 'You do not have permission to edit this image.', 'Error' );
 
 			$image = get_post( $image_id );
@@ -84,7 +84,7 @@ function pig_process_image_edit() {
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
 			$error    			= NULL;
 
-			if ( get_current_user_id() != get_post_field( 'post_author', $image_id ) )
+			if ( get_current_user_id() !== get_post_field( 'post_author', $image_id ) )
 				wp_die( 'You do not have permission to edit this image.', 'Error' );
 
 			$image = get_post( $image_id );
