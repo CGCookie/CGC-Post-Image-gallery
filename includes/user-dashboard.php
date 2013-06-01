@@ -88,7 +88,6 @@ function pig_image_edit_form() {
 		<input type="hidden" name="pig-image-action" value="edit" />
 		<input type="hidden" id="pig-image-id" name="pig-image-id" value="" />
 		<input type="hidden" id="pig-subsite-id" name="pig-subsite-id" value="" />
-		<input type="hidden" id="pig-subsite-image-id" name="pig-subsite-image-id" value="" />
 		<input type="hidden" id="pig-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
 		<input type="text" id="pig-image-title" name="pig-image-title" value="" />
 		<label for="pig-image-title">Enter in a descriptive image title</label>
