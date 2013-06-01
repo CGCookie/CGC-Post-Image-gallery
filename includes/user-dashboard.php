@@ -34,7 +34,7 @@ function pig_user_dashboard_images() {
 			// The Loop
 			while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 				<div class="pig-grid-image">
-					<a href="<?php echo get_post_meta(get_the_ID(), 'pig_image_url', true); ?>" title="View this image">
+					<a href="<?php the_permalink(); ?>" title="View this image">
 						<?php if( get_the_post_thumbnail( get_the_ID(), 'pig-gallery-thumb') ) { ?>
 							<?php the_post_thumbnail('pig-gallery-thumb'); ?>
 						<?php } ?>
@@ -42,16 +42,15 @@ function pig_user_dashboard_images() {
 					<ul class="gallery-image-controls">
 						<li id="<?php echo get_the_ID(); ?>" class="edit-image">
 							<a id="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
-								<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
+							<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 							<div class="image-title hidden"><?php echo get_the_title(); ?></div>
 							<div class="image-description hidden"><?php echo htmlentities(get_the_content()); ?></div>
-							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
-							<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div>
+							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 						<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
 							<a href="#image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
-								<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
-							<div class="image-subsite-image-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_image_id', true); ?></div>
+							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
+							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 					</ul>
 				</div>
