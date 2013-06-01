@@ -35,6 +35,7 @@ function pig_user_dashboard_images() {
 			while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 				<div class="pig-grid-image">
 					<a href="<?php the_permalink(); ?>" title="View this image">
+					<!--<a href="<?php echo get_post_meta(get_the_ID(), 'pig_image_url', true); ?>" title="View this image">-->
 						<?php if( get_the_post_thumbnail( get_the_ID(), 'pig-gallery-thumb') ) { ?>
 							<?php the_post_thumbnail('pig-gallery-thumb'); ?>
 						<?php } ?>
