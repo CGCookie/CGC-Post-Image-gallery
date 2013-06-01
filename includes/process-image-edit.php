@@ -100,7 +100,7 @@ function pig_process_image_edit() {
 				if( ! $image )
 					wp_die( 'Image not found!', 'Error' );
 
-				if ( get_current_user_id() !== $image->post_author )
+				if ( get_current_user_id() !== intval( $image->post_author ) )
 					wp_die( 'You do not have permission to delete this image.', 'Error' );
 
 				wp_delete_post( $image_id );
