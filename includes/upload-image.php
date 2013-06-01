@@ -115,6 +115,8 @@ function pig_upload_image() {
 				* switch to network home and create second image
 				************************************************/
 
+				/*
+
 				// switch to CGC home
 				switch_to_blog( 1 );
 
@@ -149,6 +151,8 @@ function pig_upload_image() {
 
 				// return to subsite
 				restore_current_blog();
+
+				*/
 
 				/*********************************
 				* setup and send the email
