@@ -22,14 +22,6 @@ function pig_process_image_edit() {
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
 			$error    			= NULL;
 
-			if ( get_current_user_id() !== get_post_field( 'post_author', $image_id ) )
-				wp_die( 'You do not have permission to edit this image.', 'Error' );
-
-			$image = get_post( $image_id );
-
-			if ( empty( $image ) )
-				return;
-
 			if ( !$name || $name == '' ) {
 				$error .= 'Please enter a name for the image.<br/>';
 			}
@@ -42,21 +34,19 @@ function pig_process_image_edit() {
 			// everything ok
 			if ( ! $error ) {
 
-				// update the image on the main site
-				$updated_image_id = wp_update_post( array(
-						'ID'   => $image_id,
-						'post_title' => $name,
-						'post_content' => $desc
-					)
-				);
-
-				update_post_meta( $image_id, 'pig_mature', $mature );
-
 				switch_to_blog( $site_id );
+
+				$image = get_post( $image_id );
+
+				if( ! $image )
+					wp_die( 'Image not found!', 'Error' );
+
+				if ( get_current_user_id() !== intval( $image->post_author ) )
+					wp_die( 'You do not have permission to edit this image.', 'Error' );
 
 				// update the image on the sub site
 				$updated_sub_site_image_id = wp_update_post( array(
-						'ID'   => $subsite_image_id,
+						'ID'   => $image_id,
 						'post_title' => $name,
 						'post_content' => $desc
 					)
@@ -67,7 +57,7 @@ function pig_process_image_edit() {
 				restore_current_blog();
 
 				// the IMAGE post was created okay
-				if ( $updated_image_id && $updated_sub_site_image_id ) {
+				if ( $updated_sub_site_image_id ) {
 					wp_redirect( $url . '?image-updated=1#gallery_tab' ); exit;
 				} else {
 					wp_redirect( $url . $url . '?image-updated=0#gallery_tab' ); exit;
