@@ -42,7 +42,7 @@ function pig_user_dashboard_images() {
 					</a>
 					<ul class="gallery-image-controls">
 						<li id="<?php echo get_the_ID(); ?>" class="edit-image">
-							<a id="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image">Edit</a>
+							<a id="image-edit-modal-toggle" href="#image-edit-modal" name="modal" title="Edit this Image">Edit</a>
 							<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 							<div class="image-title hidden"><?php echo get_the_title(); ?></div>
 							<div class="image-description hidden"><?php echo htmlentities(get_the_content()); ?></div>
