@@ -39,6 +39,8 @@ function pig_user_dashboard_images() {
 						<a href="<?php echo get_post_meta(get_the_ID(), 'pig_image_url', true); ?>" title="View this image">
 							<?php if(get_the_post_thumbnail(get_the_ID(), 'medium-thumb')) { ?>
 								<?php the_post_thumbnail('medium-thumb'); ?>
+							<?php } else { ?>
+								<img class="attachment-pig-image-dashboard" src="<?php echo get_post_meta(get_the_ID(), 'pig_dashboard_image_url', true); ?>"/>
 							<?php } ?>
 						</a>
 						<ul class="gallery-image-controls">
