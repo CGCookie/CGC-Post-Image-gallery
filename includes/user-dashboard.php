@@ -114,7 +114,6 @@ function pig_image_remove_form() {
 			<input type="hidden" name="pig-image-action" value="delete" />
 			<input type="hidden" id="pig-delete-image-id" name="pig-image-id" value="" />
 			<input type="hidden" id="pig-delete-subsite-id" name="pig-subsite-id" value="" />
-			<input type="hidden" id="pig-delete-subsite-image-id" name="pig-subsite-image-id" value="" />
 			<input type="hidden" id="pig-delete-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
 			<a href="#" id="pig-image-delete-cancel" class="close">No, I am not sure</a>
 			<input type="submit" id="pig_remove_image" value="Yes, please remove the image" />

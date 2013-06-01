@@ -10,13 +10,13 @@ function pig_process_image_edit() {
 	if( ! empty( $_POST ) ) {
 		if ( isset( $_POST['pig-image-action'] ) && $_POST['pig-image-action'] == 'edit' ) {
 
-			if ( !is_user_logged_in() )
+			if ( ! is_user_logged_in() )
 				return;
+
 
 			// edit an image
 			$image_id    		= strip_tags( stripslashes( $_POST['pig-image-id'] ) );   // get the image ID on the main site
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
-			$subsite_image_id  	= strip_tags( $_POST['pig-subsite-image-id'] );     // get the ID of the image on the subsite
 			$name     			= strip_tags( stripslashes( $_POST['pig-image-title'] ) );   // get the name of the image
 			$desc    			= strip_tags( stripslashes( $_POST['pig-image-desc'] ) );   // get the image description
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
@@ -84,31 +84,21 @@ function pig_process_image_edit() {
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
 			$error    			= NULL;
 
-			if ( get_current_user_id() !== get_post_field( 'post_author', $image_id ) )
-				wp_die( 'You do not have permission to edit this image.', 'Error' );
-
-			$image = get_post( $image_id );
-
-			if ( empty( $image ) )
-				return;
-
-			if ( !$image_id ) {
-				$error .= 'Something went wrong.<br/>';
-			}
-			if ( !$subsite_image_id ) {
+			if ( ! $image_id ) {
 				$error .= 'Something went wrong.<br/>';
 			}
 
 			// everything ok
-			if ( !$error ) {
+			if ( ! $error ) {
 
 				// remove the image from the main site
-				wp_delete_post( $image_id );
 
 				switch_to_blog( $site_id );
 
-				// remove the image on the sub site
-				wp_delete_post( $subsite_image_id );
+				if ( get_current_user_id() !== get_post_field( 'post_author', $image_id ) )
+					wp_die( 'You do not have permission to edit this image.', 'Error' );
+
+				wp_delete_post( $image_id );
 
 				restore_current_blog();
 
