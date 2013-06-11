@@ -58,7 +58,7 @@ function pig_sidebar_featured_images_widget($number = 6) {
 			$count++;
 		}
 		echo '</ul>';
-		echo '<a href="' . get_bloginfo('url') . '/gallery">View All Images</a>';
+		echo '<a href="' . get_bloginfo('url') . '/gallery">View All Images &raquo;</a>';
 	}
 
 }
@@ -92,12 +92,12 @@ function pig_show_images_from_following($number = 6) {
 			endwhile;
 
 			echo '</ul>';
-
+			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 		else:
-			echo '<p>No images found on this site.</p>';
+			echo '<p class="empty">No images found on this site.</p>';
 		endif;
 		wp_reset_postdata();
 	} else {
-		echo '<p>You are not following any users.</p>';
+		echo '<p class="empty">You are not following any users.</p>';
 	}
 }
