@@ -52,7 +52,7 @@ function pig_sidebar_featured_images_widget($number = 6) {
 			if($count == 1 || $count == 3) { $image_class = 'user-image-item last'; } else { $image_class = 'user-image-item'; }
 			echo '<li class="' . $image_class . '">';
 			echo '<a href="' . get_permalink($image->ID) . '" title="By ' . $author->user_login . '" class="user-image tool-tip">';
-			echo get_the_post_thumbnail($image->ID, 'related-image', array("title" => ""));
+			echo get_the_post_thumbnail($image->ID, 'post-image', array("title" => ""));
 			echo '</a>';
 			echo '</li>';
 			$count++;
