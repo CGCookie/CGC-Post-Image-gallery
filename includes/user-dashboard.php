@@ -108,6 +108,7 @@ function pig_user_image_count() {
 		if( $the_query->have_posts() ) {
 			$image_count = $the_query->post_count;	
 		}
+		restore_current_blog();
 	endforeach;	
 
 		return $image_count;		
