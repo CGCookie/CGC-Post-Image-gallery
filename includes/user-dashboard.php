@@ -82,6 +82,37 @@ function pig_user_dashboard_images() {
 	return ob_get_clean();
 }
 
+function pig_user_image_count() {
+	global $current_user;
+	ob_start();
+	$image_count = 0;
+	// get all network sites
+	$network_sites = get_blogs_of_user(1, false);
+
+	$image_args = array(
+		'author' => $current_user->ID,
+		'post_type' => 'images',
+		'posts_per_page' => -1
+	);
+
+	foreach( $network_sites as $site ) :
+
+		if( $site->userblog_id == 1 )
+			continue;
+
+		switch_to_blog( $site->userblog_id );
+
+		// The Query
+		$the_query = new WP_Query($image_args);
+
+		if( $the_query->have_posts() ) {
+			$image_count = $the_query->post_count;	
+		}
+	endforeach;	
+
+		return $image_count;		
+}
+
 function pig_image_edit_form() {
 	ob_start(); ?>
 
