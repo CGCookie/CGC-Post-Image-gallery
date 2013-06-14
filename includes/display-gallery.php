@@ -22,8 +22,8 @@ function pig_display_gallery($post_id) {
 				if($i == 6 || $i == 12 || $i == 18 || $i == 24 || $i == 20 || $i == 26 || $i == 32) { $class = ' class="last"'; } else { $class = ''; }
 				$gallery .= '<li' . $class .'>';
 					$image_link = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), array(600, 600) );
-					$gallery .= '<a class="thickbox" rel="user-gallery" href="' . $image_link[0] . '" title="' . get_the_title( get_the_ID() ) . ' - by ' . get_the_author_meta( 'user_login' ) . '">';
-						$gallery .= get_the_post_thumbnail(get_the_ID(), 'pig-gallery-image');
+					$gallery .= '<a class="view" rel="user-gallery" href="' . $image_link[0] . '" title="' . get_the_title( get_the_ID() ) . ' - by ' . get_the_author_meta( 'user_login' ) . '">';
+						$gallery .= get_the_post_thumbnail(get_the_ID(), 'medium-thumb');
 					$gallery .= '</a>';
 				$gallery .= '</li>';
 				$i++;
