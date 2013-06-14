@@ -3,18 +3,16 @@
 * Front end submission form for Images
 ************************************/
 
-function pig_submission_form()
-{
+function pig_submission_form() {
 	global $pig_base_dir, $current_user;
-	
-	
+
 	get_currentuserinfo();
 	$form = '';
-	if( isset( $_GET['image-submitted'] ) && $_GET['image-submitted'] == 1 ) { 
-		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>'; 
+	if( isset( $_GET['image-submitted'] ) && $_GET['image-submitted'] == 1 ) {
+		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
 	}
-	
-	$form .= '	
+
+	$form .= '
 	<script type="text/javascript">
 		//<![CDATA[
 		jQuery(function($){
@@ -28,13 +26,13 @@ function pig_submission_form()
 				$("#pig_submission").submit();
 			});
 		});
-		//]]> 
+		//]]>
 	</script>';
-	
+
 		// output form HTML
 		$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
-		if(is_user_logged_in()) {		
-		
+		if(is_user_logged_in()) {
+
 			$form .= '<fieldset>';
 				$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
 				$form .= '<div>';
@@ -45,7 +43,7 @@ function pig_submission_form()
 					$form .= '<label for="pig_image_desc">Image Description</label>';
 					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc">Describe your image</textarea></div>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
 					$form .= '<div><select name="pig_image_cat" class="ignore" id="pig_image_cat">';
@@ -55,7 +53,7 @@ function pig_submission_form()
 						}
 						$form .= '</select><br/></div>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<label for="pig_image_status">The completion status of this image</label>';
 					$form .= '<div><select name="pig_image_status" class="ignore" id="pig_image_status">';
@@ -63,12 +61,12 @@ function pig_submission_form()
 						$form .= '<option value="finished">Finished</option>';
 					$form .= '</select></div>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<label for="pig_image_file">Choose Image - <strong class="label red">Max file size: 1mb</strong></label>';
 					$form .= '<div><input type="file" name="pig_image_file"/></div>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<input type="hidden" name="pig_user_id" value="' . $current_user->ID . '"/>';
 					$form .= '<input type="hidden" name="pig_post_parent_id" value="' . get_the_ID() . '"/>';
@@ -89,26 +87,25 @@ function pig_submission_form()
 add_shortcode('upload_image_form', 'pig_submission_form');
 
 
-function pig_gallery_submission_form()
-{
+function pig_gallery_submission_form() {
 	global $pig_base_dir, $current_user;
 
 	get_currentuserinfo();
 
 	$form = '';
-	
-	if($_GET['image-submitted'] == 1) { 
-		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>'; 
+
+	if( ! empty( $_GET['image-submitted'] ) == 1 ) {
+		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
 	}
-	
-	$form .= '	
+
+	$form .= '
 	<script type="text/javascript">
 		//<![CDATA[
 		jQuery(function($){
 			$.validator.addMethod("notEqual", function(value, element, param) {
 			  return this.optional(element) || value != param;
 			});
-			
+
 			$("#pig_image_desc").focus(function() {
 				if($(this).val() == "Image Description") {
 					$(this).val("");
@@ -155,12 +152,12 @@ function pig_gallery_submission_form()
 				}
 			});
 		});
-		//]]> 
+		//]]>
 	</script>';
-	
+
 		// output form HTML
 		$form .= '<form id="pig_gallery_submission" action="" method="POST" enctype="multipart/form-data">';
-		if(is_user_logged_in()) {		
+		if(is_user_logged_in()) {
 			$form .= '<div id="gallery_tips">';
 				$form .= '<h3>Gallery Upload Tips</h3>';
 				$form .= '<ul>';
@@ -182,7 +179,7 @@ function pig_gallery_submission_form()
 					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc">Image Description</textarea></div>';
 					$form .= '<label for="pig_image_desc">What software was used, how did you make it. Things inquiring minds would want to know. Minimum of 15 characters</label>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<div><select name="pig_image_cat" class="ignore" id="pig_image_cat">';
 						$terms = get_terms('imagecategories', array('hide_empty' => false));
@@ -192,7 +189,7 @@ function pig_gallery_submission_form()
 					$form .= '</select></div>';
 					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<div><select name="pig_image_status" class="ignore" id="pig_image_status">';
 						$form .= '<option value="in progress">In Progress</option>';
@@ -200,18 +197,18 @@ function pig_gallery_submission_form()
 					$form .= '</select></div>';
 					$form .= '<label for="pig_image_status">The completion status of this image</label>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<div><input type="file" id="pig_image_file" name="pig_image_file"/></div>';
 					$form .= '<label for="pig_image_file">.jpg or .png. Less that 1600px. <strong>Max file size: 1mb</strong></label>';
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<div class="pig_checkbox_wrapper" id="pig_mature_box">';
 						$form .= '<a href="#" id="pig_mature_link"></a>';
 						$form .= '<label class="bold" for="pig_mature_link">Does this image contain mature content?</label>';
 						$form .= '<input type="hidden" name="pig_mature" value=""/>';
-					$form .= '</div>';					
+					$form .= '</div>';
 					$form .= '<div class="pig_checkbox_wrapper" id="pig_user_agreement">';
 						$form .= '<a href="#" id="pig_agreement_link"></a>';
 						$form .= '<label class="bold" for="pig_agreement_link">Agree this image is of your creation and copyright?</label>';
@@ -222,9 +219,9 @@ function pig_gallery_submission_form()
 						$form .= '<label class="bold" for="pig_okay_to_use_link">Is it okay for CG Cookie to use your image on promotional items on the site?<span>Site banners, header images, etc...</span></label>';
 						$form .= '<input type="hidden" name="pig_okay_to_use" value=""/>';
 					$form .= '</div>';
-					
+
 				$form .= '</div>';
-				
+
 				$form .= '<div>';
 					$form .= '<input type="hidden" name="pig_user_id" class="ignore" value="' . $current_user->ID . '"/>';
 					$form .= '<input type="hidden" name="pig_referrer" class="ignore" value="' . get_permalink(get_the_ID()) . '"/>';
@@ -232,7 +229,7 @@ function pig_gallery_submission_form()
 					$form .= '<input type="submit" id="pig_submit" name="pig_submit" value="Upload Image"/>';
 					$form .= '<a href="' . home_url() . '/gallery" id="pig_cancel">Cancel</a>';
 				$form .= '</div>';
-				
+
 			$form .= '</fieldset>';
 
 		} else {
