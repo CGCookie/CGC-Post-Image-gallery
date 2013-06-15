@@ -42,7 +42,7 @@ function pig_user_dashboard_images() {
 					</a>
 					<ul class="gallery-image-controls">
 						<li id="<?php echo get_the_ID(); ?>" class="edit-image">
-							<a id="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
+							<a class="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
 							<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-title hidden"><?php echo get_the_title(); ?></div>
@@ -106,11 +106,11 @@ function pig_user_image_count() {
 		$the_query = new WP_Query($image_args);
 
 		if( $the_query->have_posts() ) {
-			$image_count = $the_query->post_count;	
+			$image_count = $the_query->post_count;
 		}
-	endforeach;	
+	endforeach;
 
-		return $image_count;		
+		return $image_count;
 }
 
 function pig_image_edit_form() {
