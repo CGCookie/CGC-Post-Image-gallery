@@ -105,4 +105,4 @@ function pig_process_image_edit() {
 		}
 	}
 }
-add_action( 'init', 'pig_process_image_edit' );
+add_action( 'init', 'pig_process_image_edit', 999 );
