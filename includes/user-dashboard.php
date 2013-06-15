@@ -50,7 +50,7 @@ function pig_user_dashboard_images() {
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 						<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
-							<a id="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
+							<a class="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
