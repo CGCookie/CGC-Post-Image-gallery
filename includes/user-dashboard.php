@@ -42,7 +42,7 @@ function pig_user_dashboard_images() {
 					</a>
 					<ul class="gallery-image-controls">
 						<li id="<?php echo get_the_ID(); ?>" class="edit-image">
-							<a id="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
+							<a class="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
 							<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-title hidden"><?php echo get_the_title(); ?></div>
@@ -50,7 +50,7 @@ function pig_user_dashboard_images() {
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 						<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
-							<a id="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
+							<a class="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
@@ -89,6 +89,12 @@ function pig_user_image_count() {
 	// get all network sites
 	$network_sites = get_blogs_of_user(1, false);
 
+	$image_args = array(
+		'author' => $current_user->ID,
+		'post_type' => 'images',
+		'posts_per_page' => -1
+	);
+
 	foreach( $network_sites as $site ) :
 
 		if( $site->userblog_id == 1 )
@@ -96,13 +102,15 @@ function pig_user_image_count() {
 
 		switch_to_blog( $site->userblog_id );
 
-			$image_count += cgc_count_user_posts_by_type($current_user->ID, 'images');	
+		// The Query
+		$the_query = new WP_Query($image_args);
 
-		restore_current_blog();
+		if( $the_query->have_posts() ) {
+			$image_count = $the_query->post_count;
+		}
+	endforeach;
 
-	endforeach;	
-
-		return $image_count;		
+		return $image_count;
 }
 
 function pig_image_edit_form() {
