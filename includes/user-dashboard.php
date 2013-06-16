@@ -89,12 +89,6 @@ function pig_user_image_count() {
 	// get all network sites
 	$network_sites = get_blogs_of_user(1, false);
 
-	$image_args = array(
-		'author' => $current_user->ID,
-		'post_type' => 'images',
-		'posts_per_page' => -1
-	);
-
 	foreach( $network_sites as $site ) :
 
 		if( $site->userblog_id == 1 )
@@ -102,13 +96,10 @@ function pig_user_image_count() {
 
 		switch_to_blog( $site->userblog_id );
 
-		// The Query
-		$the_query = new WP_Query($image_args);
+			$image_count += cgc_count_user_posts_by_type($current_user->ID, 'images');	
 
-		if( $the_query->have_posts() ) {
-			$image_count = $the_query->post_count;	
-		}
 		restore_current_blog();
+
 	endforeach;	
 
 		return $image_count;		
