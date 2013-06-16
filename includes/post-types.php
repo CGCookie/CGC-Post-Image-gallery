@@ -6,7 +6,7 @@ CGC PIG Post Type and Taxonomies
 
 function pig_create_post_types() {
 
-	
+
 	$images_labels = array(
 		'name' => _x( 'Images', 'post type general name' ), // Tip: _x('') is used for localization
 		'singular_name' => _x( 'Image', 'post type singular name' ),
@@ -35,36 +35,7 @@ function pig_create_post_types() {
 		'menu_position' => 5
      );
  	register_post_type('images',$images_args);
-	
-	/*
-	$pig_images_labels = array(
-		'name' => _x( 'Images', 'post type general name' ), // Tip: _x('') is used for localization
-		'singular_name' => _x( 'Image', 'post type singular name' ),
-		'add_new' => _x( 'Add Image', 'Image' ),
-		'add_new_item' => __( 'Add Image' ),
-		'edit_item' => __( 'Edit Image' ),
-		'new_item' => __( 'Add Image' ),
-		'view_item' => __( 'View Image' ),
-		'search_items' => __( 'Search Images' ),
-		'not_found' =>  __( 'No Images found' ),
-		'not_found_in_trash' => __( 'No Images found in Trash' ),
-		'parent_item_colon' => ''
-	);
 
- 	$pig_images_args = array(
-     	'labels' =>$pig_images_labels,
-     	'singular_label' => __('Image'),
-     	'public' => true,
-     	'show_ui' => true,
-		'has_archive' => 'images',
-	  	'capability_type' => 'post',
-     	'hierarchical' => false,
-     	'rewrite' => array('slug' => 'images'),
-     	'supports' => array('title', 'editor', 'revisions', 'comments', 'author', 'thumbnail', 'custom-fields'),
-		'menu_position' => 5
-     );
- 	register_post_type('pig_images',$pig_images_args);
-	*/
 }
 add_action('init', 'pig_create_post_types');
 
@@ -84,9 +55,9 @@ function pig_register_imagecategories_tax() {
 		'not_found' 			=> __( 'No Category found' ),
 		'not_found_in_trash' 	=> __( 'No Category found in Trash' ),
 	);
-	
+
 	$pages = array('images');
-				
+
 	$args = array(
 		'labels' 			=> $labels,
 		'singular_label' 	=> __('Category'),
@@ -98,7 +69,7 @@ function pig_register_imagecategories_tax() {
 		'rewrite' 			=> array('slug' => 'image_categories'),
 	 );
 	register_taxonomy('imagecategories', $pages, $args);
-	
+
 	$labels = array(
 		'name' 					=> _x( 'Tags', 'taxonomy general name' ),
 		'singular_name' 		=> _x( 'Tag', 'taxonomy singular name' ),
@@ -111,9 +82,9 @@ function pig_register_imagecategories_tax() {
 		'not_found' 			=> __( 'No Tags found' ),
 		'not_found_in_trash' 	=> __( 'No Tags found in Trash' ),
 	);
-	
+
 	$pages = array('images');
-				
+
 	$args = array(
 		'labels' 			=> $labels,
 		'singular_label' 	=> __('Tag'),
