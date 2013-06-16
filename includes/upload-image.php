@@ -116,7 +116,7 @@ function pig_upload_image() {
 
 		// if there's an error
 		else {
-			wp_die( 'The gallery gremlins are acting up. Please click back and try again.'  'Error' );
+			wp_die( 'The gallery gremlins are acting up. Please click back and try again.', 'Error' );
 		}
 	}
 }
