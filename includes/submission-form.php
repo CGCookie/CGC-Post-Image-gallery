@@ -12,6 +12,36 @@ function pig_submission_form() {
 		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
 	}
 
+	$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
+
+	if( $error ) {
+		$form .= '<div id="image_upload_errors">';
+			switch( $error ) {
+
+				case '1' :
+					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
+					break;
+
+				case '2' :
+					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
+					break;
+
+				case '3' :
+					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+					break;
+
+				case '4' :
+					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
+					break;
+
+				case '5' :
+					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
+					break;
+
+			}
+		$form .= '</div>';
+	}
+
 	$form .= '
 	<script type="text/javascript">
 		//<![CDATA[
@@ -100,7 +130,7 @@ function pig_gallery_submission_form() {
 		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
 	}
 
-	$error = isset( $_GET['error'] ) ? $_GET['error'] : false;
+	$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
 
 	if( $error ) {
 		$form .= '<div id="image_upload_errors">';
