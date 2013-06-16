@@ -50,9 +50,9 @@ function pig_upload_image() {
 		$image = $_FILES['pig_image_file']['name'];
 		$size = $_FILES['pig_image_file']['size'];
 
-		// max is 1.10 mb
-		// only images one meg or less are allowed
-		if ( $size > 1100000 ) {
+		// max is 2.2 mb
+		// only images 2.2 meg or less are allowed
+		if ( $size > 2200000 ) {
 			wp_die( 'Your file is too large. Please click back and upload a smaller filer.', 'File too large' );
 		}
 		if ( !$name ) {

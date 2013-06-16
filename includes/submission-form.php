@@ -63,6 +63,7 @@ function pig_submission_form() {
 				$form .= '</div>';
 
 				$form .= '<div>';
+					$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2097152" />';
 					$form .= '<label for="pig_image_file">Choose Image - <strong class="label red">Max file size: 1mb</strong></label>';
 					$form .= '<div><input type="file" name="pig_image_file"/></div>';
 				$form .= '</div>';
@@ -161,16 +162,16 @@ function pig_gallery_submission_form() {
 			$form .= '<fieldset>';
 				$form .= '<h2 class="fieldset-title">Image Details</h2>';
 				$form .= '<p>';
-					$form .= '<label for="pig_image_name">Image Name</label>';				
+					$form .= '<label for="pig_image_name">Image Name</label>';
 					$form .= '<input type="text" name="pig_image_name" id="pig_image_name" placeholder="Image Title"/>';
 				$form .= '</p>';
 				$form .= '<p>';
-					$form .= '<label for="pig_image_desc">What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';				
+					$form .= '<label for="pig_image_desc">What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';
 					$form .= '<textarea name="pig_image_desc" id="pig_image_desc"></textarea>';
 				$form .= '</p>';
 
 				$form .= '<p>';
-					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';				
+					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
 					$form .= '<select name="pig_image_cat" class="ignore" id="pig_image_cat">';
 						$terms = get_terms('imagecategories', array('hide_empty' => false));
 						foreach($terms as $term) {
@@ -180,7 +181,7 @@ function pig_gallery_submission_form() {
 				$form .= '</p>';
 
 				$form .= '<p>';
-					$form .= '<label for="pig_image_status">The completion status of this image</label>';				
+					$form .= '<label for="pig_image_status">The completion status of this image</label>';
 					$form .= '<select name="pig_image_status" class="ignore" id="pig_image_status">';
 						$form .= '<option value="in progress">In Progress</option>';
 						$form .= '<option value="finished">Finished</option>';
@@ -188,7 +189,7 @@ function pig_gallery_submission_form() {
 				$form .= '</p>';
 
 				$form .= '<p class="image-submit-upload-file">';
-					$form .= '<label for="pig_image_file">Upload your image</label>';				
+					$form .= '<label for="pig_image_file">Upload your image</label>';
 					$form .= '<input type="file" id="pig_image_file" name="pig_image_file"/>';
 					$form .= '<span class="form-description">.jpg or .png. Less that 1600px. <strong>Max file size: 2mb</strong></span>';
 				$form .= '</p>';
