@@ -84,6 +84,7 @@ function pig_show_images_from_following() {
 			'author' => $users
 		);
 
+		echo '<ul class="user-images-widget clearfix">';
 		foreach( $network_sites as $site ) :
 
 			if( $site->userblog_id == 1 )
@@ -96,7 +97,6 @@ function pig_show_images_from_following() {
 
 			if ( $images->have_posts() ) :
 
-				echo '<ul class="user-images-widget clearfix">';
 
 				while ( $images->have_posts() ) : $images->the_post();
 
@@ -121,13 +121,12 @@ function pig_show_images_from_following() {
 
 				wp_reset_postdata();
 
-				echo '</ul>';
-
 			endif;
 
 			restore_current_blog();
 
 		endforeach;
+		echo '</ul>';
 		echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 
 	} else {
