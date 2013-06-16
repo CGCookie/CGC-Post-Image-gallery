@@ -101,10 +101,18 @@ function pig_show_images_from_following() {
 				while ( $images->have_posts() ) : $images->the_post();
 
 					$count = 0;
-					if($count == 1 || $count == 3) { $image_class = 'user-image-item last'; } else { $image_class = 'user-image-item'; }
+					if($count == 1 || $count == 3) {
+						$image_class = 'user-image-item last';
+					} else {
+						$image_class = 'user-image-item';
+					}
 					echo '<li class="' . $image_class . '">';
 						echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="user-image tool-tip">';
-							echo get_the_post_thumbnail(get_the_ID(), 'related-image', array("title" => ""));
+							if( get_the_post_thumbnail( get_the_ID(), 'related-image' ) ) {
+								the_post_thumbnail('related-image' );
+							} else {
+								the_title();
+							}
 						echo '</a>';
 					echo '</li>';
 					$count++;
