@@ -51,6 +51,7 @@ class pig_meta_box {
 
 		// get URL of the directory of current file
 		$base_url = str_replace( WP_PLUGIN_DIR, WP_PLUGIN_URL, $path );  // if this file is placed under a plugin
+
 		$base_url = get_bloginfo( 'stylesheet_directory' ) . '/includes/metabox'; // or inside a theme (note that this statement WON'T do anything if the above statement was successful)
 
 		wp_enqueue_style( 'rw-meta-box', $base_url . '/meta-box.css' );

@@ -26,7 +26,7 @@ function pig_user_dashboard_images() {
 		echo '<div class="site-portfolio">';
 		if( $the_query->have_posts() ) :
 			echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
-			echo '<span class="site-portfolio-controls">';
+			echo '<span class="site-gallery-controls">';
 				echo '<a href="' . network_home_url($site->path . 'profile/' . $current_user->user_login) . '"><i class="icon-eye-open"></i> view gallery</a>';
 				echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
 			echo '</span>';
@@ -42,7 +42,7 @@ function pig_user_dashboard_images() {
 					</a>
 					<ul class="gallery-image-controls">
 						<li id="<?php echo get_the_ID(); ?>" class="edit-image">
-							<a id="image-edit-modal-toggle" href="#image-edit-modal" name="image-edit-modal" title="Edit this Image">Edit</a>
+							<a class="image-edit-modal-toggle" href="#" data-reveal-id="image-edit-modal" title="Edit this Image"><i class="icon-pencil"></i></a>
 							<div class="image-mature hidden"><?php if(get_post_meta(get_the_ID(), 'pig_mature', true)) { echo 'yes'; } else { echo 'no'; } ?></div>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-title hidden"><?php echo get_the_title(); ?></div>
@@ -50,12 +50,13 @@ function pig_user_dashboard_images() {
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 						<li id="remove-<?php echo get_the_ID(); ?>" class="delete-image">
-							<a href="#image-delete-modal" name="image-delete-modal" title="Delete this Image">Delete</i></a>
+							<a class="image-delete-modal-toggle" href="#image-delete-modal" data-reveal-id="image-delete-modal" name="image-delete-modal" title="Delete this Image"><i class="icon-remove"></i></a>
 							<div class="image-subsite-id hidden"><?php echo get_post_meta(get_the_ID(), 'pig_subsite_id', true); ?></div>
 							<div class="image-id hidden"><?php echo get_the_ID(); ?></div>
 						</li>
 					</ul>
 				</div>
+
 			<?php
 			endwhile;
 			echo '</div><!-- ends #user-portfolio-images -->'; // ends #user-portfolio-images
@@ -66,7 +67,7 @@ function pig_user_dashboard_images() {
 		else :
 
 			echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
-			echo '<span class="site-portfolio-controls">';
+			echo '<span class="site-gallery-controls">';
 				echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
 			echo '</span>';
 			echo '<p class="empty">You have no images uploaded to '. $site->blogname .'</p>';
@@ -79,6 +80,37 @@ function pig_user_dashboard_images() {
 	endforeach; // foreach sites
 
 	return ob_get_clean();
+}
+
+function pig_user_image_count() {
+	global $current_user;
+	ob_start();
+	$image_count = 0;
+	// get all network sites
+	$network_sites = get_blogs_of_user(1, false);
+
+	$image_args = array(
+		'author' => $current_user->ID,
+		'post_type' => 'images',
+		'posts_per_page' => -1
+	);
+
+	foreach( $network_sites as $site ) :
+
+		if( $site->userblog_id == 1 )
+			continue;
+
+		switch_to_blog( $site->userblog_id );
+
+		// The Query
+		$the_query = new WP_Query($image_args);
+
+		if( $the_query->have_posts() ) {
+			$image_count = $the_query->post_count;
+		}
+	endforeach;
+
+		return $image_count;
 }
 
 function pig_image_edit_form() {
@@ -107,7 +139,7 @@ function pig_image_edit_form() {
 function pig_image_remove_form() {
 	ob_start(); ?>
 	<div id="pig-image-delete-wrap">
-		<h3>Are you sure you want to delete</h3>
+		<h3 class="reveal-modal-header">Are you sure you want to delete?</h3>
 		<p><strong>Clicking yes will obliterate the data beyond recovery</strong></p>
 		<form id="pig-image-remove" action="" method="POST"/>
 
@@ -115,8 +147,8 @@ function pig_image_remove_form() {
 			<input type="hidden" id="pig-delete-image-id" name="pig-image-id" value="" />
 			<input type="hidden" id="pig-delete-subsite-id" name="pig-subsite-id" value="" />
 			<input type="hidden" id="pig-delete-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
-			<a href="#" id="pig-image-delete-cancel" class="close">No, I am not sure</a>
-			<input type="submit" id="pig_remove_image" value="Yes, please remove the image" />
+			<input type="submit" id="pig_remove_image" value="Delete Image Forever" />
+			<a href="#" id="pig-image-delete-cancel" class="close cancel"><i class="icon-remove"></i> Wait, no!</a>
 		</form>
 	</div><!--end #pig-image-delete-wrap-->
 	<?php

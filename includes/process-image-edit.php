@@ -70,7 +70,6 @@ function pig_process_image_edit() {
 			// delete an image
 			$image_id    		= strip_tags( stripslashes( $_POST['pig-image-id'] ) );   // get the image ID on the main site
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
-			$subsite_image_id  	= strip_tags( $_POST['pig-subsite-image-id'] );     // get the ID of the image on the subsite
 			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
 			$error    			= NULL;
 
@@ -106,4 +105,4 @@ function pig_process_image_edit() {
 		}
 	}
 }
-add_action( 'init', 'pig_process_image_edit' );
+add_action( 'init', 'pig_process_image_edit', 999 );
