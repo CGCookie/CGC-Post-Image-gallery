@@ -235,7 +235,7 @@ function pig_gallery_submission_form() {
 			$form .= '</p>';
 			$form .= '<p>';
 				$form .= '<label for="pig_image_desc">What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';
-				$form .= '<textarea name="pig_image_desc" id="pig_image_desc"></textarea>';
+				$form .= '<textarea name="pig_image_desc" id="pig_image_desc" rows="15"></textarea>';
 			$form .= '</p>';
 
 			$form .= '<p>';
@@ -295,7 +295,7 @@ function pig_gallery_submission_form() {
 			$form .= '</p>';
 			$form .= '</fieldset>';
 
-		$form .= '</form>';			
+		$form .= '</form>';
 
 		} else {
 			$form .= '<p class="alert please-login">You must be logged in to upload images. <a id="header-login-form-toggle" href="#" data-reveal-id="header-login-form" class="login-link">Login</a> or <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
