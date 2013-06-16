@@ -234,7 +234,7 @@ function pig_gallery_submission_form() {
 				$form .= '<input type="text" name="pig_image_name" id="pig_image_name" placeholder="Image Title"/>';
 			$form .= '</p>';
 			$form .= '<p>';
-				$form .= '<label for="pig_image_desc">What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';
+				$form .= '<label for="pig_image_desc"><strong>Description:</strong> What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';
 				$form .= '<textarea name="pig_image_desc" id="pig_image_desc" rows="15"></textarea>';
 			$form .= '</p>';
 
