@@ -29,35 +29,6 @@ function pig_submission_form() {
 		//]]>
 	</script>';
 
-	$error = isset( $_GET['error'] ) ? absint( $_GET['error'] ) : false;
-
-	if( ! empty( $error ) ) {
-		$form .= '<div id="image_upload_errors">';
-			switch( $error ) {
-
-				case 1 :
-					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
-					break;
-
-				case 2 :
-					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
-					break;
-
-				case 3 :
-					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
-					break;
-
-				case 4 :
-					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
-					break;
-
-				case 5 :
-					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
-					break;
-
-			}
-		$form .= '</div>';
-	}
 
 	// output form HTML
 	$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
@@ -127,6 +98,36 @@ function pig_gallery_submission_form() {
 
 	if( ! empty( $_GET['image-submitted'] ) == 1 ) {
 		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
+	}
+
+	$error = isset( $_GET['error'] ) ? intval( $_GET['error'] ) : false;
+
+	if( ! empty( $error ) ) {
+		$form .= '<div id="image_upload_errors">';
+			switch( $error ) {
+
+				case 1 :
+					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
+					break;
+
+				case 2 :
+					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
+					break;
+
+				case 3 :
+					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+					break;
+
+				case 4 :
+					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
+					break;
+
+				case 5 :
+					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
+					break;
+
+			}
+		$form .= '</div>';
 	}
 
 	$form .= '
@@ -220,6 +221,7 @@ function pig_gallery_submission_form() {
 
 				$form .= '<p class="image-submit-upload-file">';
 					$form .= '<label for="pig_image_file">Upload your image</label>';
+					$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2200000" />';
 					$form .= '<input type="file" id="pig_image_file" name="pig_image_file"/>';
 					$form .= '<span class="form-description">.jpg or .png. Less that 1600px. <strong>Max file size: 2mb</strong></span>';
 				$form .= '</p>';
