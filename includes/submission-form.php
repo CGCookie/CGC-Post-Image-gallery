@@ -41,7 +41,7 @@ function pig_submission_form() {
 				$form .= '</div>';
 				$form .= '<div>';
 					$form .= '<label for="pig_image_desc">Image Description</label>';
-					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc">Describe your image</textarea></div>';
+					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc" rows="15">Describe your image</textarea></div>';
 				$form .= '</div>';
 
 				$form .= '<div>';
