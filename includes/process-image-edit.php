@@ -92,7 +92,12 @@ function pig_process_image_edit() {
 				if ( get_current_user_id() !== intval( $image->post_author ) )
 					wp_die( 'You do not have permission to delete this image.', 'Error' );
 
+				$file_id = get_post_thumbnail_id( $image_id );
+
 				wp_delete_post( $image_id );
+
+				if( ! empty( $file_id ) )
+					wp_delete_attachment( $file_id );
 
 				restore_current_blog();
 
