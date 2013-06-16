@@ -112,7 +112,7 @@ function pig_submission_form() {
 			$form .= '</div>';
 
 		} else {
-			$form .= '<p>You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
+			$form .= '<p class="alert">You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
 		}
 
 		$form .= '</fieldset>';
@@ -189,6 +189,7 @@ function pig_gallery_submission_form() {
 	</script>';
 
 		// output form HTML
+	if(is_user_logged_in()) {
 	$form .= '<form id="pig_gallery_submission" action="" method="POST" enctype="multipart/form-data">';
 
 		$form .= '<fieldset>';
@@ -227,8 +228,6 @@ function pig_gallery_submission_form() {
 				$form .= '</div>';
 			}
 
-
-		if(is_user_logged_in()) {
 			$form .= '<h2 class="fieldset-title">Image Details</h2>';
 			$form .= '<p>';
 				$form .= '<label for="pig_image_name">Image Name</label>';
@@ -294,14 +293,14 @@ function pig_gallery_submission_form() {
 				$form .= '<a href="' . home_url() . '/gallery" id="pig_cancel" class="cancel"><i class="icon-remove"></i> Cancel</a>';
 
 			$form .= '</p>';
+			$form .= '</fieldset>';
+
+		$form .= '</form>';			
 
 		} else {
-			$form .= '<p>You must be logged in to upload images. <a href="#login-modal" name="modal">Login</a> or <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
+			$form .= '<p class="alert please-login">You must be logged in to upload images. <a id="header-login-form-toggle" href="#" data-reveal-id="header-login-form" class="login-link">Login</a> or <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
 		}
 
-		$form .= '</fieldset>';
-
-	$form .= '</form>';
 
 	return $form;
 }
