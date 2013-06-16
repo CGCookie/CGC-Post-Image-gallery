@@ -31,7 +31,7 @@ function pig_submission_form() {
 
 	$error = isset( $_GET['error'] ) ? absint( $_GET['error'] ) : false;
 
-	if( ( ! empty( $error ) ) {
+	if( ! empty( $error ) ) {
 		$form .= '<div id="image_upload_errors">';
 			switch( $error ) {
 
