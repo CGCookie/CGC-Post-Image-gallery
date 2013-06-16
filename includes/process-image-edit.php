@@ -58,13 +58,13 @@ function pig_process_image_edit() {
 
 				// the IMAGE post was created okay
 				if ( $updated_sub_site_image_id ) {
-					wp_redirect( $url . '?image-updated=1#gallery_tab' ); exit;
+					wp_redirect( $url . '?image-updated=1#manage_images' ); exit;
 				} else {
-					wp_redirect( $url . $url . '?image-updated=0#gallery_tab' ); exit;
+					wp_redirect( $url . $url . '?image-updated=0#manage_images' ); exit;
 				}
 			} else {
 				// if there's an error
-				header( "Location: " . $url . '?image-updated=0&fields-empty=1#gallery_tab' );
+				header( "Location: " . $url . '?image-updated=0&fields-empty=1#manage_images' );
 			}
 		} else if ( isset( $_POST['pig-image-action'] ) && $_POST['pig-image-action'] == 'delete' ) {
 			// delete an image
@@ -101,11 +101,11 @@ function pig_process_image_edit() {
 
 				restore_current_blog();
 
-				header( "Location: " . $url . '?image-removed=1#gallery_tab' );
+				header( "Location: " . $url . '?image-removed=1#manage_images' );
 
 			} else {
 				// if there's an error
-				header( "Location: " . $url . '?image-removed=0#gallery_tab' );
+				header( "Location: " . $url . '?image-removed=0#manage_images' );
 			}
 		}
 	}
