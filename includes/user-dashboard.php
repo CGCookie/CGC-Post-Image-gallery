@@ -68,7 +68,7 @@ function pig_user_dashboard_images() {
 
 			echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
 			echo '<span class="site-gallery-controls">';
-				echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
+				echo '<a href="'. $site->siteurl .'/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
 			echo '</span>';
 			echo '<p class="empty">You have no images uploaded to '. $site->blogname .'</p>';
 		endif;
