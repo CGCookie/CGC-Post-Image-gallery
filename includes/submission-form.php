@@ -29,59 +29,89 @@ function pig_submission_form() {
 		//]]>
 	</script>';
 
-		// output form HTML
-		$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
-		if(is_user_logged_in()) {
+	$error = isset( $_GET['error'] ) ? absint( $_GET['error'] ) : false;
 
-			$form .= '<fieldset>';
-				$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
-				$form .= '<div>';
-					$form .= '<label for="pig_image_name">Name of Image</label>';
-					$form .= '<input type="text" name="pig_image_name" id="pig_image_name"/>';
-				$form .= '</div>';
-				$form .= '<div>';
-					$form .= '<label for="pig_image_desc">Image Description</label>';
-					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc" rows="15">Describe your image</textarea></div>';
-				$form .= '</div>';
+	if( ( ! empty( $error ) ) {
+		$form .= '<div id="image_upload_errors">';
+			switch( $error ) {
 
-				$form .= '<div>';
-					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
-					$form .= '<div><select name="pig_image_cat" class="ignore" id="pig_image_cat">';
-						$terms = get_terms('imagecategories', array('hide_empty' => false));
-						foreach($terms as $term) {
-							$form .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
-						}
-						$form .= '</select><br/></div>';
-				$form .= '</div>';
+				case '1' :
+					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
+					break;
 
-				$form .= '<div>';
-					$form .= '<label for="pig_image_status">The completion status of this image</label>';
-					$form .= '<div><select name="pig_image_status" class="ignore" id="pig_image_status">';
-						$form .= '<option value="in progress">In Progress</option>';
-						$form .= '<option value="finished">Finished</option>';
-					$form .= '</select></div>';
-				$form .= '</div>';
+				case '2' :
+					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
+					break;
 
-				$form .= '<div>';
-					$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2200000" />';
-					$form .= '<label for="pig_image_file">Choose Image - <strong class="label red">Max file size: 1mb</strong></label>';
-					$form .= '<div><input type="file" name="pig_image_file"/></div>';
-				$form .= '</div>';
+				case '3' :
+					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+					break;
 
-				$form .= '<div>';
-					$form .= '<input type="hidden" name="pig_user_id" value="' . $current_user->ID . '"/>';
-					$form .= '<input type="hidden" name="pig_post_parent_id" value="' . get_the_ID() . '"/>';
-					$form .= '<input type="hidden" name="pig_post_parent_name" value="' . get_the_title(get_the_ID()) . '"/>';
-					$form .= '<input type="hidden" name="pig_referrer" value="' . get_permalink(get_the_ID()) . '"/>';
-					$form .= '<input type="hidden" name="pig_nonce" class="ignore" value="' . wp_create_nonce('pig-nonce') . '"/>';
-					$form .= '<input type="submit" id="pig_submit" value="Upload Image"/>';
-				$form .= '</div>';
-			$form .= '</fieldset>';
+				case '4' :
+					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
+					break;
 
-		} else {
-			$form .= '<p>You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
-		}
-		$form .= '</form>';
+				case '5' :
+					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
+					break;
+
+			}
+		$form .= '</div>';
+	}
+
+	// output form HTML
+	$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
+	if(is_user_logged_in()) {
+
+		$form .= '<fieldset>';
+			$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
+			$form .= '<div>';
+				$form .= '<label for="pig_image_name">Name of Image</label>';
+				$form .= '<input type="text" name="pig_image_name" id="pig_image_name"/>';
+			$form .= '</div>';
+			$form .= '<div>';
+				$form .= '<label for="pig_image_desc">Image Description</label>';
+				$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc" rows="15">Describe your image</textarea></div>';
+			$form .= '</div>';
+
+			$form .= '<div>';
+				$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
+				$form .= '<div><select name="pig_image_cat" class="ignore" id="pig_image_cat">';
+					$terms = get_terms('imagecategories', array('hide_empty' => false));
+					foreach($terms as $term) {
+						$form .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
+					}
+					$form .= '</select><br/></div>';
+			$form .= '</div>';
+
+			$form .= '<div>';
+				$form .= '<label for="pig_image_status">The completion status of this image</label>';
+				$form .= '<div><select name="pig_image_status" class="ignore" id="pig_image_status">';
+					$form .= '<option value="in progress">In Progress</option>';
+					$form .= '<option value="finished">Finished</option>';
+				$form .= '</select></div>';
+			$form .= '</div>';
+
+			$form .= '<div>';
+				$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2200000" />';
+				$form .= '<label for="pig_image_file">Choose Image - <strong class="label red">Max file size: 1mb</strong></label>';
+				$form .= '<div><input type="file" name="pig_image_file"/></div>';
+			$form .= '</div>';
+
+			$form .= '<div>';
+				$form .= '<input type="hidden" name="pig_user_id" value="' . $current_user->ID . '"/>';
+				$form .= '<input type="hidden" name="pig_post_parent_id" value="' . get_the_ID() . '"/>';
+				$form .= '<input type="hidden" name="pig_post_parent_name" value="' . get_the_title(get_the_ID()) . '"/>';
+				$form .= '<input type="hidden" name="pig_referrer" value="' . get_permalink(get_the_ID()) . '"/>';
+				$form .= '<input type="hidden" name="pig_nonce" class="ignore" value="' . wp_create_nonce('pig-nonce') . '"/>';
+				$form .= '<input type="submit" id="pig_submit" value="Upload Image"/>';
+			$form .= '</div>';
+		$form .= '</fieldset>';
+
+	} else {
+		$form .= '<p>You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
+	}
+	$form .= '</form>';
 
 	return $form;
 }

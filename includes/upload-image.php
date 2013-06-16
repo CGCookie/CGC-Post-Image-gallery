@@ -48,30 +48,30 @@ function pig_upload_image() {
 		}
 
 		$image = $_FILES['pig_image_file']['name'];
-		$size = $_FILES['pig_image_file']['size'];
+		$size  = $_FILES['pig_image_file']['size'];
 
 		// max is 2.2 mb
 		// only images 2.2 meg or less are allowed
 		if ( $size > 2200000 ) {
-			wp_die( 'Your file is too large. Please click back and upload a smaller filer.', 'File too large' );
+			wp_redirect( add_query_arg( 'error', '1', $_POST['pig_referrer'] ) ); exit;
 		}
-		if ( !$name ) {
-			$error .= 'Please enter a name for the image.<br/>';
+		if ( empty( $name ) ) {
+			wp_redirect( add_query_arg( 'error', '2', $_POST['pig_referrer'] ) ); exit;
 		}
-		if ( !$desc || $desc == 'Describe your image' ) {
-			$error .= 'Please enter a description.<br/>';
+		if ( empty( $desc ) || $desc == 'Describe your image' ) {
+			wp_redirect( add_query_arg( 'error', '3', $_POST['pig_referrer'] ) ); exit;
 		}
-		if ( !$image ) {
-			$error .= 'Please upload an image<br/>';
+		if ( ! $image ) {
+			wp_redirect( add_query_arg( 'error', '4', $_POST['pig_referrer'] ) ); exit;
 		}
 		// everything ok
 		if ( !$error ) {
 			$image_data = array(
-				'post_title' => $name,
+				'post_title'   => $name,
 				'post_content' => $desc,
 				'post_status'  => 'publish',
-				'post_author' => $user_id,
-				'post_type'  => 'images',
+				'post_author'  => $user_id,
+				'post_type'    => 'images',
 			);
 
 			// create the pending IMAGE post
@@ -110,13 +110,13 @@ function pig_upload_image() {
 
 			}
 			else {
-				wp_redirect( $url . '?image-submitted=0#image-gallery' ); exit;
+				wp_redirect( $url . '?image-submitted=0&error=6#image-gallery' ); exit;
 			}
 		}
 
 		// if there's an error
 		else {
-			wp_die( $error );
+			wp_die( 'The gallery gremlins are acting up. Please click back and try again.'  'Error' );
 		}
 	}
 }
