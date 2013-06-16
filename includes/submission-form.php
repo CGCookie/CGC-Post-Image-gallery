@@ -63,7 +63,7 @@ function pig_submission_form() {
 				$form .= '</div>';
 
 				$form .= '<div>';
-					$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2097152" />';
+					$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2200000" />';
 					$form .= '<label for="pig_image_file">Choose Image - <strong class="label red">Max file size: 1mb</strong></label>';
 					$form .= '<div><input type="file" name="pig_image_file"/></div>';
 				$form .= '</div>';
