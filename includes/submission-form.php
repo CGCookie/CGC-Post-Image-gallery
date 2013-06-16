@@ -30,44 +30,44 @@ function pig_submission_form() {
 	// output form HTML
 	$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
 
-	if( isset( $_GET['image-submitted'] ) && $_GET['image-submitted'] == 1 ) {
-		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
-	}
-
-	$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
-
-	if( $error ) {
-		$form .= '<div id="image_upload_errors">';
-			switch( $error ) {
-
-				case '1' :
-					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
-					break;
-
-				case '2' :
-					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
-					break;
-
-				case '3' :
-					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
-					break;
-
-				case '4' :
-					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
-					break;
-
-				case '5' :
-					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
-					break;
-
-			}
-		$form .= '</div>';
-	}
-
-
-	if(is_user_logged_in()) {
-
 		$form .= '<fieldset>';
+
+		if( isset( $_GET['image-submitted'] ) && $_GET['image-submitted'] == 1 ) {
+			$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
+		}
+
+		$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
+
+		if( $error ) {
+			$form .= '<div id="image_upload_errors">';
+				switch( $error ) {
+
+					case '1' :
+						$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
+						break;
+
+					case '2' :
+						$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
+						break;
+
+					case '3' :
+						$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+						break;
+
+					case '4' :
+						$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
+						break;
+
+					case '5' :
+						$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
+						break;
+
+				}
+			$form .= '</div>';
+		}
+
+		if(is_user_logged_in()) {
+
 			$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
 			$form .= '<div>';
 				$form .= '<label for="pig_image_name">Name of Image</label>';
@@ -110,11 +110,13 @@ function pig_submission_form() {
 				$form .= '<input type="hidden" name="pig_nonce" class="ignore" value="' . wp_create_nonce('pig-nonce') . '"/>';
 				$form .= '<input type="submit" id="pig_submit" value="Upload Image"/>';
 			$form .= '</div>';
+
+		} else {
+			$form .= '<p>You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
+		}
+
 		$form .= '</fieldset>';
 
-	} else {
-		$form .= '<p>You must be logged in to upload images. <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
-	}
 	$form .= '</form>';
 
 	return $form;
@@ -189,43 +191,44 @@ function pig_gallery_submission_form() {
 		// output form HTML
 	$form .= '<form id="pig_gallery_submission" action="" method="POST" enctype="multipart/form-data">';
 
-	if( ! empty( $_GET['image-submitted'] )  && $_GET['image-submitted'] == 1 ) {
-		$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
-	}
-
-	$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
-
-	if( $error ) {
-		$form .= '<div id="image_upload_errors">';
-			switch( $error ) {
-
-				case '1' :
-					$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
-					break;
-
-				case '2' :
-					$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
-					break;
-
-				case '3' :
-					$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
-					break;
-
-				case '4' :
-					$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
-					break;
-
-				case '5' :
-					$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
-					break;
-
-			}
-		$form .= '</div>';
-	}
-
-
-	if(is_user_logged_in()) {
 		$form .= '<fieldset>';
+
+			if( ! empty( $_GET['image-submitted'] )  && $_GET['image-submitted'] == 1 ) {
+				$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
+			}
+
+			$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
+
+			if( $error ) {
+				$form .= '<div id="image_upload_errors">';
+					switch( $error ) {
+
+						case '1' :
+							$form .= '<p class="error">Whoa there! You need to size that image down a little. Max upload size is 2MB.</p>';
+							break;
+
+						case '2' :
+							$form .= '<p class="error">You forgot to name your image. What a sad image that would have been.</p>';
+							break;
+
+						case '3' :
+							$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+							break;
+
+						case '4' :
+							$form .= '<p class="error">Hey now, we like invisibility cloaks as much as anyone, but we can\'t show off your image if we can\'t see it.</p>';
+							break;
+
+						case '5' :
+							$form .= '<p class="error">The image gremlins are grumpy and snatched your image before we could upload it. Please try again.</p>';
+							break;
+
+					}
+				$form .= '</div>';
+			}
+
+
+		if(is_user_logged_in()) {
 			$form .= '<h2 class="fieldset-title">Image Details</h2>';
 			$form .= '<p>';
 				$form .= '<label for="pig_image_name">Image Name</label>';
@@ -292,11 +295,12 @@ function pig_gallery_submission_form() {
 
 			$form .= '</p>';
 
+		} else {
+			$form .= '<p>You must be logged in to upload images. <a href="#login-modal" name="modal">Login</a> or <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
+		}
+
 		$form .= '</fieldset>';
 
-	} else {
-		$form .= '<p>You must be logged in to upload images. <a href="#login-modal" name="modal">Login</a> or <a href="http://cgcookie.com/membership" title="Register">Register</a></p>';
-	}
 	$form .= '</form>';
 
 	return $form;
