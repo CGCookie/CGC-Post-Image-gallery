@@ -70,7 +70,7 @@ function pig_process_image_edit() {
 			// delete an image
 			$image_id    		= strip_tags( stripslashes( $_POST['pig-image-id'] ) );   // get the image ID on the main site
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
-			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
+			$url                = network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
 			if ( ! $image_id ) {
