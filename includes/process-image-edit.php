@@ -19,7 +19,7 @@ function pig_process_image_edit() {
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
 			$name     			= strip_tags( stripslashes( $_POST['pig-image-title'] ) );   // get the name of the image
 			$desc    			= strip_tags( stripslashes( $_POST['pig-image-desc'] ) );   // get the image description
-			$url    			= strip_tags( stripslashes( $_POST['pig-referrer'] ) );   // get the redirect URL
+			$url                = network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
 			if ( !$name || $name == '' ) {
