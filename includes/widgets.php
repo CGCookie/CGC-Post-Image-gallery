@@ -122,13 +122,13 @@ function pig_show_images_from_following() {
 				wp_reset_postdata();
 
 				echo '</ul>';
-			else:
+
 			endif;
-			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 
 			restore_current_blog();
 
 		endforeach;
+		echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 
 	} else {
 		echo '<p class="empty">You are not following any users.</p>';
