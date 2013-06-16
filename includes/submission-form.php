@@ -36,7 +36,7 @@ function pig_submission_form() {
 			$form .= '<fieldset>';
 				$form .='<h3 class="reveal-modal-header">Upload Image</h3>';
 				$form .= '<div>';
-					$form .= '<label for="pig_image_name">Image Name</label>';
+					$form .= '<label for="pig_image_name">Name of Image</label>';
 					$form .= '<input type="text" name="pig_image_name" id="pig_image_name"/>';
 				$form .= '</div>';
 				$form .= '<div>';
@@ -158,77 +158,71 @@ function pig_gallery_submission_form() {
 		// output form HTML
 		$form .= '<form id="pig_gallery_submission" action="" method="POST" enctype="multipart/form-data">';
 		if(is_user_logged_in()) {
-			$form .= '<div id="gallery_tips">';
-				$form .= '<h3>Gallery Upload Tips</h3>';
-				$form .= '<ul>';
-					$form .= '<li>JPG or PNG Recommended</li>';
-					$form .= '<li>Image Width 1600PX or Less</li>';
-					$form .= '<li>Max File size 1MB</li>';
-					$form .= '<li>Image Name / Max 100 Characters</li>';
-					$form .= '<li>The Work is of Your Own</li>';
-					$form .= '<li>Avoid Obscenity</li>';
-				$form .= '</ul>';
-				$form .= '<p>When uploading to the gallery, be sure it meets the above requirements and is ready for feedback!</p>';
-			$form .= '</div>';
 			$form .= '<fieldset>';
-				$form .= '<div>';
+				$form .= '<h2 class="fieldset-title">Image Details</h2>';
+				$form .= '<p>';
+					$form .= '<label for="pig_image_name">Image Name</label>';				
 					$form .= '<input type="text" name="pig_image_name" id="pig_image_name" placeholder="Image Title"/>';
-					$form .= '<label for="pig_image_name">Image Name</label>';
-				$form .= '</div>';
-				$form .= '<div>';
-					$form .= '<div><textarea name="pig_image_desc" id="pig_image_desc">Image Description</textarea></div>';
-					$form .= '<label for="pig_image_desc">What software was used, how did you make it. Things inquiring minds would want to know. Minimum of 15 characters</label>';
-				$form .= '</div>';
+				$form .= '</p>';
+				$form .= '<p>';
+					$form .= '<label for="pig_image_desc">What software was used? How did you make it? Things inquiring minds would want to know. Minimum of 15 characters</label>';				
+					$form .= '<textarea name="pig_image_desc" id="pig_image_desc"></textarea>';
+				$form .= '</p>';
 
-				$form .= '<div>';
-					$form .= '<div><select name="pig_image_cat" class="ignore" id="pig_image_cat">';
+				$form .= '<p>';
+					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';				
+					$form .= '<select name="pig_image_cat" class="ignore" id="pig_image_cat">';
 						$terms = get_terms('imagecategories', array('hide_empty' => false));
 						foreach($terms as $term) {
 							$form .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
 						}
-					$form .= '</select></div>';
-					$form .= '<label for="pig_image_cat">Select the category that best fits your image</label>';
-				$form .= '</div>';
+					$form .= '</select>';
+				$form .= '</p>';
 
-				$form .= '<div>';
-					$form .= '<div><select name="pig_image_status" class="ignore" id="pig_image_status">';
+				$form .= '<p>';
+					$form .= '<label for="pig_image_status">The completion status of this image</label>';				
+					$form .= '<select name="pig_image_status" class="ignore" id="pig_image_status">';
 						$form .= '<option value="in progress">In Progress</option>';
 						$form .= '<option value="finished">Finished</option>';
-					$form .= '</select></div>';
-					$form .= '<label for="pig_image_status">The completion status of this image</label>';
-				$form .= '</div>';
+					$form .= '</select>';
+				$form .= '</p>';
 
-				$form .= '<div>';
-					$form .= '<div><input type="file" id="pig_image_file" name="pig_image_file"/></div>';
-					$form .= '<label for="pig_image_file">.jpg or .png. Less that 1600px. <strong>Max file size: 1mb</strong></label>';
-				$form .= '</div>';
+				$form .= '<p class="image-submit-upload-file">';
+					$form .= '<label for="pig_image_file">Upload your image</label>';				
+					$form .= '<input type="file" id="pig_image_file" name="pig_image_file"/>';
+					$form .= '<span class="form-description">.jpg or .png. Less that 1600px. <strong>Max file size: 2mb</strong></span>';
+				$form .= '</p>';
 
-				$form .= '<div>';
+				$form .= '<div class="submission-guidelines-agreement">';
 					$form .= '<div class="pig_checkbox_wrapper" id="pig_mature_box">';
-						$form .= '<a href="#" id="pig_mature_link"></a>';
-						$form .= '<label class="bold" for="pig_mature_link">Does this image contain mature content?</label>';
+						$form .= '<a href="#" id="pig_mature_link">';
+							$form .= '<label class="bold" for="pig_mature_link"><i class="icon-sign-blank"></i> Does this image contain mature content?</label>';
+						$form .= '</a>';
 						$form .= '<input type="hidden" name="pig_mature" value=""/>';
 					$form .= '</div>';
 					$form .= '<div class="pig_checkbox_wrapper" id="pig_user_agreement">';
-						$form .= '<a href="#" id="pig_agreement_link"></a>';
-						$form .= '<label class="bold" for="pig_agreement_link">Agree this image is of your creation and copyright?</label>';
+						$form .= '<a href="#" id="pig_agreement_link">';
+							$form .= '<label class="bold" for="pig_agreement_link"><i class="icon-sign-blank"></i>  I Agree this image is of my creation and copyright.</label>';
+						$form .= '</a>';
 						$form .= '<input type="hidden" name="pig_agreement" value=""/>';
 					$form .= '</div>';
 					$form .= '<div class="pig_checkbox_wrapper" id="pig_use_image">';
-						$form .= '<a href="#" id="pig_okay_to_use_link"></a>';
-						$form .= '<label class="bold" for="pig_okay_to_use_link">Is it okay for CG Cookie to use your image on promotional items on the site?<span>Site banners, header images, etc...</span></label>';
+						$form .= '<a href="#" id="pig_okay_to_use_link">';
+							$form .= '<label class="bold" for="pig_okay_to_use_link"><i class="icon-sign-blank"></i>   Is it okay for CG Cookie to use your image on promotional items on the site?<span>Site banners, header images, etc...</span></label>';
+						$form .= '</a>';
 						$form .= '<input type="hidden" name="pig_okay_to_use" value=""/>';
 					$form .= '</div>';
 
 				$form .= '</div>';
 
-				$form .= '<div>';
+				$form .= '<p>';
 					$form .= '<input type="hidden" name="pig_user_id" class="ignore" value="' . $current_user->ID . '"/>';
 					$form .= '<input type="hidden" name="pig_referrer" class="ignore" value="' . get_permalink(get_the_ID()) . '"/>';
 					$form .= '<input type="hidden" name="pig_nonce" class="ignore" value="' . wp_create_nonce('pig-nonce') . '"/>';
 					$form .= '<input type="submit" id="pig_submit" name="pig_submit" value="Upload Image"/>';
-					$form .= '<a href="' . home_url() . '/gallery" id="pig_cancel">Cancel</a>';
-				$form .= '</div>';
+					$form .= '<a href="' . home_url() . '/gallery" id="pig_cancel" class="cancel"><i class="icon-remove"></i> Cancel</a>';
+
+				$form .= '</p>';
 
 			$form .= '</fieldset>';
 
