@@ -63,7 +63,7 @@ function pig_sidebar_featured_images_widget($number = 6) {
 
 }
 
-function pig_show_images_from_following($number = 6) {
+function pig_show_images_from_following() {
 
 	global $user_ID;
 
@@ -80,7 +80,7 @@ function pig_show_images_from_following($number = 6) {
 
 		$image_args = array(
 			'post_type' => 'images',
-			'posts_per_page' => $number,
+			'posts_per_page' => 3,
 			'author' => $users
 		);
 
