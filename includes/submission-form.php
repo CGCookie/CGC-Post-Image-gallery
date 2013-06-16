@@ -51,7 +51,7 @@ function pig_submission_form() {
 						break;
 
 					case '3' :
-						$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+						$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?</p>';
 						break;
 
 					case '4' :
@@ -212,7 +212,7 @@ function pig_gallery_submission_form() {
 							break;
 
 						case '3' :
-							$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?.</p>';
+							$form .= '<p class="error">No description entered? Don\'t you want to tell us all about your amazing image?</p>';
 							break;
 
 						case '4' :
