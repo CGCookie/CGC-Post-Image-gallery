@@ -28,7 +28,7 @@ function pig_user_dashboard_images() {
 			echo '<h5 class="site-portfolio-name">' . $site->blogname . ' Images</h5>';
 			echo '<span class="site-gallery-controls">';
 				echo '<a href="' . network_home_url($site->path . 'profile/' . $current_user->user_login) . '"><i class="icon-eye-open"></i> view gallery</a>';
-				echo '<a href="'. $site->siteurl .'/gallery/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
+				echo '<a href="'. $site->siteurl .'/submit-image" title="Submit a new image"><i class="icon-plus"></i> Add Image</a>';
 			echo '</span>';
 			echo '<div id="user-portfolio-images" class="gallery clearfix">';
 			// The Loop
