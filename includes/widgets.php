@@ -122,10 +122,9 @@ function pig_show_images_from_following() {
 				wp_reset_postdata();
 
 				echo '</ul>';
-				echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 			else:
-				echo '<p class="empty">No images found on this site.</p>';
 			endif;
+			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
 
 			restore_current_blog();
 
