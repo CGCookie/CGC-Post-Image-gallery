@@ -38,7 +38,8 @@ function pig_sidebar_featured_images_widget($number = 6) {
 			'numberposts' => $number,
 			'suppress_filters' => true,
 			'meta_key' => 'pig_featured',
-			'meta_value' => 'on'
+			'meta_value' => 'on',
+			'post__not_in' => cgc_get_hidden_images()
 		);
 		$images = get_posts($image_args);
 		set_transient('pig_sidebar_featured_images', $images, 1800);
