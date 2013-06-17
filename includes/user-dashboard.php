@@ -122,14 +122,21 @@ function pig_image_edit_form() {
 		<input type="hidden" id="pig-image-id" name="pig-image-id" value="" />
 		<input type="hidden" id="pig-subsite-id" name="pig-subsite-id" value="" />
 		<input type="hidden" id="pig-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
-		<input type="text" id="pig-image-title" name="pig-image-title" value="" />
-		<label for="pig-image-title">Enter in a descriptive image title</label>
+		<p>
+			<label for="pig-image-title">Edit your image title</label>
+			<input type="text" id="pig-image-title" name="pig-image-title" value="" />
+		</p>
+		<p><label for="pig-image-desc">Edit your image description</label>
 		<textarea id="pig-image-desc" name="pig-image-desc"></textarea>
-		<label for="pig-image-desc">What software was used, how did you make it... things inquiring minds would want to know</label>
-		<input type="checkbox" id="pig-image-mature" name="pig-image-mature" value="1" />
-		<label for="pig-image-mature">Contains mature content?</label>
+		</p>
+		<p>
+			<label for="pig-image-mature" class="checkbox">
+				<input type="checkbox" id="pig-image-mature" name="pig-image-mature" value="1" />
+				Contains mature content?
+			</label>
+		</p>
 		<input type="submit" class="button" id="pig_submit" value="Submit Update" />
-		<a href="#" class="close" id="pig_cancel">Cancel</a>
+		<a href="#" class="close cancel" id="pig_cancel"><i class="icon-remove"></i> Cancel</a>
 	</form>
 
 	<?php
