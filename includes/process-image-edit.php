@@ -19,6 +19,7 @@ function pig_process_image_edit() {
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
 			$name     			= strip_tags( stripslashes( $_POST['pig-image-title'] ) );   // get the name of the image
 			$desc    			= strip_tags( stripslashes( $_POST['pig-image-desc'] ) );   // get the image description
+			$mature    			= strip_tags( stripslashes( $_POST['pig-image-mature'] ) );   // get the image maturity
 			$url                = network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
@@ -52,7 +53,7 @@ function pig_process_image_edit() {
 					)
 				);
 
-				update_post_meta( $subsite_image_id, 'pig_mature', $mature );
+				update_post_meta( $image_id, 'pig_mature', $mature );
 
 				restore_current_blog();
 
