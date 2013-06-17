@@ -58,7 +58,7 @@ function pig_sidebar_featured_images_widget($number = 6) {
 			$count++;
 		}
 		echo '</ul>';
-		echo '<a href="' . get_bloginfo('url') . '/gallery">View All Images &raquo;</a>';
+		echo '<a href="' . get_bloginfo('url') . '/gallery" class="view-more">View All Images &raquo;</a>';
 	}
 
 }
@@ -92,7 +92,7 @@ function pig_show_images_from_following($number = 6) {
 			endwhile;
 
 			echo '</ul>';
-			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
+			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following" class="view-more">View All Images &raquo;</a>';
 		else:
 			echo '<p class="empty">No images found on this site.</p>';
 		endif;
