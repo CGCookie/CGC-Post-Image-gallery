@@ -260,7 +260,7 @@ function pig_gallery_submission_form() {
 				$form .= '<label for="pig_image_file">Upload your image</label>';
 				$form .= '<input type="hidden" name="MAX_FILE_SIZE" value="2200000" />';
 				$form .= '<input type="file" id="pig_image_file" name="pig_image_file"/>';
-				$form .= '<span class="form-description">.jpg or .png. Less that 1600px. <strong>Max file size: 2mb</strong></span>';
+				$form .= '<span class="form-description">.jpg or .png. Less than 1600px. <strong>Max file size: 2mb</strong></span>';
 			$form .= '</p>';
 
 			$form .= '<div class="submission-guidelines-agreement">';
@@ -278,7 +278,7 @@ function pig_gallery_submission_form() {
 				$form .= '</div>';
 				$form .= '<div class="pig_checkbox_wrapper" id="pig_use_image">';
 					$form .= '<a href="#" id="pig_okay_to_use_link">';
-						$form .= '<label class="bold" for="pig_okay_to_use_link"><i class="icon-sign-blank"></i>   Is it okay for CG Cookie to use your image on promotional items on the site?<span>Site banners, header images, etc...</span></label>';
+						$form .= '<label class="bold" for="pig_okay_to_use_link"><i class="icon-sign-blank"></i>   Is it okay for CG Cookie to use your image on promotional items on the site? <span>Site banners, header images, etc...</span></label>';
 					$form .= '</a>';
 					$form .= '<input type="hidden" name="pig_okay_to_use" value=""/>';
 				$form .= '</div>';
