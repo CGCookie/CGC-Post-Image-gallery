@@ -33,7 +33,7 @@ function pig_submission_form() {
 		$form .= '<fieldset>';
 
 		if( isset( $_GET['image-submitted'] ) && $_GET['image-submitted'] == 1 ) {
-			$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
+			$form .= '<div class="image_submitted success">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . esc_url( get_permalink( $_GET['image-id'] ) ) . '" title="View Image">View Image</a>.</div>';
 		}
 
 		$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
@@ -195,7 +195,7 @@ function pig_gallery_submission_form() {
 		$form .= '<fieldset>';
 
 			if( ! empty( $_GET['image-submitted'] )  && $_GET['image-submitted'] == 1 ) {
-				$form .= '<div class="image_submitted">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
+				$form .= '<div class="image_submitted success">Thanks! Your image as been added to the gallery. You may edit this image from your dashboard at any time. <a href="' . get_permalink($_GET['image-id']) . '" title="View Image">View Image</a>.</div>';
 			}
 
 			$error = ! empty( $_GET['image-error'] ) ? $_GET['image-error'] : false;
