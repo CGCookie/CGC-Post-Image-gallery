@@ -59,6 +59,13 @@ function pig_process_image_edit() {
 
 				// the IMAGE post was created okay
 				if ( $updated_sub_site_image_id ) {
+
+					if( class_exists( 'CWS_Fragment_Cache' ) ) {
+						// Flush user profile cache
+						$frag = new CWS_Fragment_Cache( 'cgc-profile-' . get_current_user_id(), 3600 );
+						$frag->flush();
+					}
+
 					wp_redirect( $url . '?image-updated=1#manage_images' ); exit;
 				} else {
 					wp_redirect( $url . $url . '?image-updated=0#manage_images' ); exit;
@@ -81,7 +88,7 @@ function pig_process_image_edit() {
 			// everything ok
 			if ( ! $error ) {
 
-				// remove the image from the main site
+				// remove the image from the sub site
 
 				switch_to_blog( $site_id );
 
@@ -101,6 +108,12 @@ function pig_process_image_edit() {
 					wp_delete_attachment( $file_id );
 
 				restore_current_blog();
+
+				if( class_exists( 'CWS_Fragment_Cache' ) ) {
+					// Flush user profile cache
+					$frag = new CWS_Fragment_Cache( 'cgc-profile-' . get_current_user_id(), 3600 );
+					$frag->flush();
+				}
 
 				header( "Location: " . $url . '?image-removed=1#manage_images' );
 

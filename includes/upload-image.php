@@ -106,10 +106,20 @@ function pig_upload_image() {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
 				}
 
+				if( class_exists( 'CWS_Fragment_Cache' ) ) {
+					switch_to_blog( 1 );
+
+					// Flush user profile cache
+					$frag = new CWS_Fragment_Cache( 'cgc-profile-' . $user_id, 3600 );
+					$frag->flush();
+
+					restore_current_blog();
+
+				}
+
 				wp_redirect( $url . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
 
-			}
-			else {
+			} else {
 				wp_redirect( $url . '?image-submitted=0&error=6#image-gallery' ); exit;
 			}
 		}
