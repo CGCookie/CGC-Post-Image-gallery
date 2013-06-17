@@ -58,12 +58,12 @@ function pig_sidebar_featured_images_widget($number = 6) {
 			$count++;
 		}
 		echo '</ul>';
-		echo '<a href="' . get_bloginfo('url') . '/gallery" class="view-more">View All Images &raquo;</a>';
+		echo '<a href="' . get_bloginfo('url') . '/gallery">View All Images &raquo;</a>';
 	}
 
 }
 
-function pig_show_images_from_following($number = 6) {
+function pig_show_images_from_following() {
 
 	global $user_ID;
 
@@ -71,32 +71,64 @@ function pig_show_images_from_following($number = 6) {
 		return;
 
 	$following = cgc_get_following($user_ID);
-	if($following) {
-		$users = implode(',', $following);
-		$images = new WP_Query( array('post_type' => 'images', 'post_status' => 'publish', 'posts_per_page' => $number, 'author' => $users) );
-		if ( $images->have_posts() ) :
+	if( $following ) {
 
-			echo '<ul class="user-images-widget clearfix">';
+		$users = implode( ',', $following) ;
 
-			while ( $images->have_posts() ) : $images->the_post();
+		// get all network sites
+		$network_sites = get_blogs_of_user(1, false);
 
-				$count = 0;
-				if($count == 1 || $count == 3) { $image_class = 'user-image-item last'; } else { $image_class = 'user-image-item'; }
-				echo '<li class="' . $image_class . '">';
-					echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="user-image tool-tip">';
-						echo get_the_post_thumbnail(get_the_ID(), 'related-image', array("title" => ""));
-					echo '</a>';
-				echo '</li>';
-				$count++;
+		$image_args = array(
+			'post_type' => 'images',
+			'posts_per_page' => 3,
+			'author' => $users
+		);
 
-			endwhile;
+		echo '<ul class="user-images-widget clearfix">';
+		foreach( $network_sites as $site ) :
 
-			echo '</ul>';
-			echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following" class="view-more">View All Images &raquo;</a>';
-		else:
-			echo '<p class="empty">No images found on this site.</p>';
-		endif;
-		wp_reset_postdata();
+			if( $site->userblog_id == 1 )
+				continue;
+
+			switch_to_blog( $site->userblog_id );
+
+			// The Query
+			$images = new WP_Query( $image_args );
+
+			if ( $images->have_posts() ) :
+
+
+				while ( $images->have_posts() ) : $images->the_post();
+
+					$count = 0;
+					if($count == 1 || $count == 3) {
+						$image_class = 'user-image-item last';
+					} else {
+						$image_class = 'user-image-item';
+					}
+					echo '<li class="' . $image_class . '">';
+						echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="user-image tool-tip">';
+							if( get_the_post_thumbnail( get_the_ID(), 'related-image' ) ) {
+								the_post_thumbnail('related-image' );
+							} else {
+								the_title();
+							}
+						echo '</a>';
+					echo '</li>';
+					$count++;
+
+				endwhile;
+
+				wp_reset_postdata();
+
+			endif;
+
+			restore_current_blog();
+
+		endforeach;
+		echo '</ul>';
+		echo '<a href="' . get_bloginfo('url') . '/gallery/?view=following">View All Images &raquo;</a>';
+
 	} else {
 		echo '<p class="empty">You are not following any users.</p>';
 	}
