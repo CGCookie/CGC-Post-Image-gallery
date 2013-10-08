@@ -49,13 +49,14 @@ function pig_upload_image() {
 
 		$image = $_FILES['pig_image_file']['name'];
 		$size  = $_FILES['pig_image_file']['size'];
-		
-		echo '<pre>';var_dump($size);echo'</pre>';
-		echo '<pre>';var_dump($_FILES);echo'</pre>';
-		exit();
+		$error = $_FILES['pig_image_file']['error'];
 
 		// max is 2.2 mb
 		// only images 2.2 meg or less are allowed
+		if( $error !== UPLOAD_ERR_OK ){
+			wp_redirect( add_query_arg( 'image-error', '5', 'image-error-code', $error, $_POST['pig_referrer'] ) );
+			exit;
+		}
 		if ( $size > 2200000 ) {
 			wp_redirect( add_query_arg( 'image-error', '1', $_POST['pig_referrer'] ) );
 			exit;
