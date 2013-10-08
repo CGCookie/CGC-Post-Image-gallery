@@ -54,7 +54,7 @@ function pig_upload_image() {
 		// max is 2.2 mb
 		// only images 2.2 meg or less are allowed
 		if( $error !== UPLOAD_ERR_OK ){
-			wp_redirect( add_query_arg( 'image-error', '5', 'image-error-code', $error, $_POST['pig_referrer'] ) );
+			wp_redirect( add_query_arg( array('image-error' => '5', 'image-error-code' => $error), $_POST['pig_referrer'] ) );
 			exit;
 		}
 		if ( $size > 2200000 ) {
