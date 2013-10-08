@@ -49,6 +49,10 @@ function pig_upload_image() {
 
 		$image = $_FILES['pig_image_file']['name'];
 		$size  = $_FILES['pig_image_file']['size'];
+		
+		echo '<pre>';var_dump($size);echo'</pre>';
+		echo '<pre>';var_dump($_FILES);echo'</pre>';
+		exit();
 
 		// max is 2.2 mb
 		// only images 2.2 meg or less are allowed
