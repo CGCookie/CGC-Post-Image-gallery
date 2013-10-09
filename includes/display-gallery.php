@@ -1,7 +1,7 @@
 <?php
 
 
-function pig_display_gallery($post_id) {
+function pig_display_gallery( $post_id, $display = 8 ) {
 
 	global $pig_base_dir;
 
@@ -9,7 +9,7 @@ function pig_display_gallery($post_id) {
 		'meta_key'		=> 'pig_parent_post_id',
 		'meta_value'	=> $post_id,
 		'post_type'		=> 'images',
-		'posts_per_page'=> 6
+		'posts_per_page'=> $display
 	);
 	$image_query  = new WP_Query();
 	$image_query->query($args);
