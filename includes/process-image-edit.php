@@ -20,7 +20,7 @@ function pig_process_image_edit() {
 			$name     			= strip_tags( stripslashes( $_POST['pig-image-title'] ) );   // get the name of the image
 			$desc    			= strip_tags( stripslashes( $_POST['pig-image-desc'] ) );   // get the image description
 			$mature    			= strip_tags( stripslashes( $_POST['pig-image-mature'] ) );   // get the image maturity
-			$url                = isset( $_POST['pig-redirect-to'] ) && $_POST['pig-redirect-to'] ? sanitize_text_field( $_POST['pig-redirect-to'] ) : network_home_url( '/dashboard/' );
+			$url                = isset( $_POST['pig-redirect-to'] ) && $_POST['pig-delete-redirect-to'] ? sanitize_text_field( $_POST['pig-delete-redirect-to'] ) : network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
 			if ( !$name || $name == '' ) {

@@ -155,7 +155,7 @@ function pig_image_remove_form() {
 			<input type="hidden" id="pig-delete-image-id" name="pig-image-id" value="" />
 			<input type="hidden" id="pig-delete-subsite-id" name="pig-subsite-id" value="" />
 			<input type="hidden" id="pig-delete-referrer" name="pig-referrer" value="<?php the_permalink(); ?>" />
-			<input type="hidden" id="pig-redirect-to" name="pig-redirect-to" value="" />
+			<input type="hidden" id="pig-delete-redirect-to" name="pig-delete-redirect-to" value="" />
 			<input type="submit" id="pig_remove_image" value="Delete Image Forever" />
 			<a href="#" id="pig-image-delete-cancel" class="close cancel"><i class="icon-remove"></i> Wait, no!</a>
 		</form>
