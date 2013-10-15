@@ -116,10 +116,13 @@ function pig_process_image_edit() {
 				}
 
 				header( "Location: " . $url . '?image-removed=1#manage_images' );
+				exit();
 
 			} else {
 				// if there's an error
 				header( "Location: " . $url . '?image-removed=0#manage_images' );
+				exit();
+
 			}
 		}
 	}
