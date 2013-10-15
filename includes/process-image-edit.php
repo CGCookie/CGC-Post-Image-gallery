@@ -138,8 +138,6 @@ function pig_handle_notices(){
 	$updated = isset( $_GET['image-updated'] ) ? $_GET['image-updated'] : false;
 	$removed = isset( $_GET['image-removed'] ) ? $_GET['image-removed'] : false;
 
-	echo '<pre>';var_dump($updated);echo'</pre>';
-
 	if( $updated !== false ){
 		$type = $updated ? 'success' : 'error';
 		$message = $updated ? __( 'Your image was updated.', 'cgc-pig' ) : __( 'There was a problem updating the image.', 'cgc-pig' );
