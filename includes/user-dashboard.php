@@ -128,7 +128,7 @@ function pig_image_edit_form() {
 			<input type="text" id="pig-image-title" name="pig-image-title" value="" />
 		</p>
 		<p><label for="pig-image-desc">Edit your image description</label>
-		<textarea id="pig-image-desc" name="pig-image-desc" rows="15"></textarea>
+		<textarea id="pig-image-desc" name="pig-image-desc" rows="8"></textarea>
 		</p>
 		<p>
 			<label for="pig-image-mature" class="checkbox">
