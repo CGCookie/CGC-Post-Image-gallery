@@ -128,3 +128,26 @@ function pig_process_image_edit() {
 	}
 }
 add_action( 'init', 'pig_process_image_edit', 999 );
+
+/**
+ * pig_handle_notices()
+ *
+ * @return void
+ */
+function pig_handle_notices(){
+	$updated = isset( $_GET['image-updated'] ) ? $_GET['image-updated'] : false;
+	$removed = isset( $_GET['image-removed'] ) ? $_GET['image-removed'] : false;
+
+	if( $updated !== false ){
+		$type = $updated ? 'success' : 'error';
+		$message = $updated ? __( 'Your image was updated.', 'cgc-pig' ) : __( 'There was a problem updating the image.', 'cgc-pig' );
+		cgc_add_notice( $message, $type );
+	}
+
+	if( $removed !== false ){
+		$type = $removed ? 'success' : 'error';
+		$message = $removed ? __( 'Your image was removed.', 'cgc-pig' ) : __( 'There was a problem removing the image.', 'cgc-pig' );
+		cgc_add_notice( $message, $type );
+	}
+}
+add_action( 'cgc_notices', 'pig_handle_notices' );
