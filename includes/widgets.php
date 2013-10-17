@@ -29,18 +29,15 @@ function pig_sidebar_images_widget($number = 6) {
 }
 
 function pig_sidebar_featured_images_widget( $number = 6 ) {
-	if( in_array( $_SERVER['HTTP_X_FORWARDED_FOR'], array( '68.186.201.202' ) ) ){
-		delete_transient( 'pig_sidebar_featured_images' );
-	}
 	$images = get_transient( 'pig_sidebar_featured_images' );
 	if( $images === false ) {
 		$image_args = array(
 			'post_type' => 'images',
 			'post_status' => 'publish',
-			'numberposts' => $number * 2,
-			'suppress_filters' => true,
+			'numberposts' => $number * 2, // double the amount requested (testing)
+			'suppress_filters' => true, // this happens automatically for get_posts
 			'meta_key' => 'pig_featured',
-			'meta_value' => 'on', // this happens automatically for get_posts
+			'meta_value' => 'on',
 			'post__not_in' => cgc_get_hidden_images()
 		);
 		$images = get_posts( $image_args );
@@ -63,7 +60,7 @@ function pig_sidebar_featured_images_widget( $number = 6 ) {
 				$output .= '</li>';
 				$count++;
 
-				if( $count == 6 ) break;
+				if( $count == 6 ) break; // stop at 6, even though we requested more.
 			}
 		$output .= '</ul>';
 		$output .= '<a href="' . esc_attr( get_bloginfo( 'url' ) ) . '/gallery" class="view-more">View All Images &raquo;</a>';
