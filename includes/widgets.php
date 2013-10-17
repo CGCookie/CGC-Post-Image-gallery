@@ -29,7 +29,7 @@ function pig_sidebar_images_widget($number = 6) {
 }
 
 function pig_sidebar_featured_images_widget( $number = 6 ) {
-	if( in_array( ['HTTP_X_FORWARDED_FOR'], array( '68.186.201.202' ) ) ){
+	if( in_array( $_SERVER['HTTP_X_FORWARDED_FOR'], array( '68.186.201.202' ) ) ){
 		delete_transient( 'pig_sidebar_featured_images' );
 	}
 	$images = get_transient( 'pig_sidebar_featured_images' );
