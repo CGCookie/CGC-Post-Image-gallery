@@ -29,19 +29,20 @@ function pig_sidebar_images_widget($number = 6) {
 }
 
 function pig_sidebar_featured_images_widget( $number = 6 ) {
-	$images = get_transient( 'pig_sidebar_featured_images' );
-	if( $images === false ) {
+	$blog_id = get_current_blog_id();
+	$images = get_transient( 'pig_sidebar_featured_images-' . $blog_id );
+	if( $images === false || count( $images ) < $number ) { // make sure we have at LEAST the amount we're requesting
 		$image_args = array(
 			'post_type' => 'images',
 			'post_status' => 'publish',
-			'numberposts' => $number * 2, // double the amount requested (testing)
+			'numberposts' => $number,
 			'suppress_filters' => true, // this happens automatically for get_posts
 			'meta_key' => 'pig_featured',
 			'meta_value' => 'on',
 			'post__not_in' => cgc_get_hidden_images()
 		);
 		$images = get_posts( $image_args );
-		set_transient( 'pig_sidebar_featured_images', $images, 1800 );
+		set_transient( 'pig_sidebar_featured_images-' . $blog_id, $images, 1800 );
 	}
 
 	if( $images ) {
@@ -60,7 +61,7 @@ function pig_sidebar_featured_images_widget( $number = 6 ) {
 				$output .= '</li>';
 				$count++;
 
-				if( $count == 6 ) break; // stop at 6, even though we requested more.
+				if( $count == number ) break; // stop at requested amount in case the amount stored is greater
 			}
 		$output .= '</ul>';
 		$output .= '<a href="' . esc_attr( get_bloginfo( 'url' ) ) . '/gallery" class="view-more">View All Images &raquo;</a>';
