@@ -109,6 +109,7 @@ function pig_upload_image() {
 				update_post_meta( $image_id, 'pig_image_url', $permalink );
 				update_post_meta( $image_id, 'pig_okay_to_use', $can_be_used );
 				update_post_meta( $image_id, 'pig_image_status', $status );
+
 				if ( isset( $_POST['pig_mature'] ) && $_POST['pig_mature'] == 1 ) {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
 				}
@@ -122,6 +123,17 @@ function pig_upload_image() {
 
 					restore_current_blog();
 
+				}
+
+				do_action( 'pig_image_uploaded', $image_id, $thumbnail );
+
+				if( function_exists('cgcaf_add_item') ){
+					cgcaf_add_item( get_current_user_ID(), array(
+						'type' => 'image',
+						'href' => get_permalink( $image_id ),
+						'src' => wp_get_attachment_image_src( $thumbnail, 'pig_dashboard_image_url' ),
+						'content' => __( 'Somebody just uploaded a picture...' )
+					) );
 				}
 
 				wp_redirect( $url . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
