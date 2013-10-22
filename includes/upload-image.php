@@ -127,18 +127,6 @@ function pig_upload_image() {
 
 				do_action( 'pig_image_uploaded', $image_id, $thumbnail );
 
-				if( function_exists('cgcaf_add_item') ){
-					$src = wp_get_attachment_image_src( $thumbnail, 'pig-image-dashboard' );
-					$item_key = cgcaf_add_item( get_current_user_ID(), array(
-						'type' => 'image',
-						'href' => get_permalink( $image_id ),
-						'image' => $src[0],
-						'content' => __( 'Somebody just uploaded a picture...' ),
-						'class' => 'cp-following-image'
-					) );
-					update_post_meta( $image_id, 'pig_activity_key', $item_key );
-				}
-
 				wp_redirect( $url . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
 
 			} else {
