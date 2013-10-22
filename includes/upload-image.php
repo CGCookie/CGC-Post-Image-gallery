@@ -133,7 +133,8 @@ function pig_upload_image() {
 						'type' => 'image',
 						'href' => get_permalink( $image_id ),
 						'src' => $src[0],
-						'content' => __( 'Somebody just uploaded a picture...' )
+						'content' => __( 'Somebody just uploaded a picture...' ),
+						'class' => 'cp-following-image'
 					) );
 				}
 
