@@ -132,7 +132,7 @@ function pig_upload_image() {
 					cgcaf_add_item( get_current_user_ID(), array(
 						'type' => 'image',
 						'href' => get_permalink( $image_id ),
-						'src' => $src[0],
+						'image' => $src[0],
 						'content' => __( 'Somebody just uploaded a picture...' ),
 						'class' => 'cp-following-image'
 					) );
