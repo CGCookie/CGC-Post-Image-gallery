@@ -128,10 +128,11 @@ function pig_upload_image() {
 				do_action( 'pig_image_uploaded', $image_id, $thumbnail );
 
 				if( function_exists('cgcaf_add_item') ){
+					$src = wp_get_attachment_image_src( $thumbnail, 'pig_dashboard_image_url' );
 					cgcaf_add_item( get_current_user_ID(), array(
 						'type' => 'image',
 						'href' => get_permalink( $image_id ),
-						'src' => wp_get_attachment_image_src( $thumbnail, 'pig_dashboard_image_url' ),
+						'src' => $src[0],
 						'content' => __( 'Somebody just uploaded a picture...' )
 					) );
 				}
