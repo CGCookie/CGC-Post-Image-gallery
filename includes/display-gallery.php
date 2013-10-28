@@ -45,7 +45,7 @@ function pig_get_image( $size = 'full' ) {
 			$exists = file_exists( $src );
 		} else {
 			$headers = @get_headers( $src );
-			$exists = (strpos( $headers[0], '404' ) === false)
+			$exists = (strpos( $headers[0], '404' ) === false);
 		}
 		if( $exists )
 			return $src;
