@@ -2,7 +2,7 @@
 
 /**
  * pig_display_gallery()
- * 
+ *
  * @param mixed $post_id
  * @param integer $display
  * @return string
@@ -34,4 +34,26 @@ function pig_display_gallery( $post_id, $display = 8 ) {
 	}
 
 	return ob_get_clean();
+}
+
+function pig_get_image( $size = 'full' ) {
+	$thumb   = get_post_thumbnail_id();
+	$img_url = wp_get_attachment_image_src( $thumb, $size );
+	if( $image ) {
+		$src = $image[0];
+		if( @ini_get( 'allow_url_fopen' ) ){
+			$exists = file_exists( $src );
+		} else {
+			$headers = @get_headers( $src );
+			$exists = (strpos( $headers[0], '404' ) === false)
+		}
+		if( $exists )
+			return $src;
+
+		$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
+
+		if ( ! $check_flag )
+			$flag = update_post_meta( get_the_ID(), '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
+	}
+	return false;
 }
