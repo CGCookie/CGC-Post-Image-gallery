@@ -41,13 +41,8 @@ function pig_get_image( $size = 'full' ) {
 	$img_url = wp_get_attachment_image_src( $thumb, $size );
 	if( $image ) {
 		$src = $image[0];
-		if( @ini_get( 'allow_url_fopen' ) ){
-			$exists = file_exists( $src );
-		} else {
-			$headers = @get_headers( $src );
-			$exists = (strpos( $headers[0], '404' ) === false);
-		}
-		if( $exists )
+		$headers = @get_headers( $src );
+		if( strpos( $headers[0], '404' ) === false )
 			return $src;
 
 		$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
