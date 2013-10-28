@@ -77,7 +77,6 @@ function pig_get_thumbnail_size( $size ){
 		} else {
 			if( isset( $_wp_additional_image_sizes ) && isset( $_wp_additional_image_sizes[ $s ] ) )
 				$dimensions = array( $_wp_additional_image_sizes[ $s ]['width'], $_wp_additional_image_sizes[ $s ]['height'] );
-			}
 		}
 
 		if( $s == $size ){
