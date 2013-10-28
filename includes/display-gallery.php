@@ -41,12 +41,11 @@ function pig_get_image( $size = 'full' ) {
 	$image = wp_get_attachment_image_src( $thumb, $size );
 	if( $image ) {
 		$src = $image[0];
-		if( @ini_get( 'allow_url_fopen' ) ){
+		$headers = @get_headers( $src );
+		$exists = (strpos( $headers[0], '404' ) === false);
+		/*if( @ini_get( 'allow_url_fopen' ) ){
 			$exists = file_exists( $src );
-		} else {
-			$headers = @get_headers( $src );
-			$exists = (strpos( $headers[0], '404' ) === false);
-		}
+		}*/
 		if( $exists )
 			return $src;
 
