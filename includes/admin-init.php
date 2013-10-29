@@ -8,6 +8,9 @@ function pig_admin_menu(){
 
 function pig_admin_image_repair(){
 
+	ini_set( 'display_errors', '1');
+	error_reporting(E_ALL);
+
 	$images = new WP_Query( array(
 		'post_type' => 'images',
 		'posts_per_page' => '-1',
