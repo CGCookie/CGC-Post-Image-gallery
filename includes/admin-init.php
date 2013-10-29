@@ -11,11 +11,12 @@ function pig_admin_image_repair(){
 	$images = new WP_Query( array(
 		'post_type' => 'images',
 		'posts_per_page' => '50',
+		'post_status' => 'publish',
 		'meta_query' => array(
 			array(
 				'meta_key' => '_pig_image_404',
 				'meta_compare' => '!=',
-				'meta_value' => ''
+				'meta_value' => 'CGCOOKIE'
 			)
 		)
 	) );
