@@ -41,11 +41,11 @@ function pig_get_image( $size = 'full' ) {
 	$thumb = get_post_thumbnail_id();
 	$image = wp_get_attachment_image_src( $thumb, $size );
 
-	if( $image ) {
-
+	if( $image && pig_src_exists( $image[0] ) ) {
 		$dims = pig_get_thumbnail_size( $size );
 		if( ( $dims[0] != $image[1] || $dims[1] != $image[2] ) && function_exists( 'aq_resize' ) ){
-			return aq_resize( $image[0], $dims[0], $dims[1], true, true, true );
+			if( $new_src = aq_resize( $image[0], $dims[0], $dims[1], true, true, true ) )
+				return $new_src;
 		}
 
 		return $image[0];
