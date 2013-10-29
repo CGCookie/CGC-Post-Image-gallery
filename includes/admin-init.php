@@ -15,7 +15,7 @@ function pig_admin_image_repair(){
 				'meta_key' => '_pig_image_404',
 				'meta_compare' => '!=',
 				'meta_value' => ''
-			}
+			)
 		)
 	) );
 
