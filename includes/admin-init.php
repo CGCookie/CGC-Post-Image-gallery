@@ -7,8 +7,7 @@ function pig_admin_menu(){
 }
 
 function pig_admin_image_repair(){
-	echo '1';
-	exit();
+
 	$images = new WP_Query( array(
 		'post_type' => 'images',
 		'posts_per_page' => '-1',
@@ -20,6 +19,10 @@ function pig_admin_image_repair(){
 			)
 		)
 	) );
+
+
+	echo'<pre>';var_dump($images);echo'</pre>';
+	exit();
 
 	include( 'admin-page.php' );
 }
