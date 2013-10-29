@@ -14,9 +14,9 @@ function pig_admin_image_repair(){
 		'post_status' => 'publish',
 		'meta_query' => array(
 			array(
-				'meta_key' => '_pig_image_404',
-				'meta_compare' => '!=',
-				'meta_value' => 'CGCOOKIE'
+				'key' => '_pig_image_404',
+				'compare' => '!=',
+				'value' => ''
 			)
 		)
 	) );
