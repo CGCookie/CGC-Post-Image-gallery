@@ -41,23 +41,14 @@ function pig_get_image( $size = 'full' ) {
 	$thumb = get_post_thumbnail_id();
 	$image = wp_get_attachment_image_src( $thumb, $size );
 
-	if ( ! $image && $size != 'full' ){
-		$image = wp_get_attachment_image_src( $thumb, 'full' );
-		$resize = true;
-	}
-
 	if( $image ) {
-		$src = $image[0];
-		$headers = @get_headers( $src );
-		$exists = (strpos( $headers[0], '404' ) === false);
-		if( $exists ){
-			if( $resize && function_exists( 'aq_resize' ) ){
-				if( $dims = pig_get_thumbnail_size( $size ) )
-					$src = aq_resize( $src, $dims[0], $dims[1], true, true, true );
-			}
 
-			return $src;
+		$dims = pig_get_thumbnail_size( $size );
+		if( ( $dims[0] != $image[1] || $dims[1] != $image[2] ) && function_exists( 'aq_resize' ) ){
+			return aq_resize( $image[0], $dims[0], $dims[1], true, true, true );
 		}
+
+		return $image[0];
 	}
 
 	$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
@@ -87,4 +78,27 @@ function pig_get_thumbnail_size( $size ){
 	}
 
 	return false;
+}
+
+function pig_src_exists( $src ){
+	if( ! $src )
+		return false;
+
+	$size = @getimagesize( $src );
+
+	if( $size !== false )
+		return true;
+
+	$headers = @get_headers( $src );
+
+	return ( strpos( $headers[0], '404' ) === false );
+
+	$ch = curl_init( $src );
+    curl_setopt( $ch, CURLOPT_NOBODY, true ); // prevents any content from being downloaded
+    curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
+    curl_exec( $ch );
+    $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+    curl_close($ch);
+
+    return ( $code == 200 );
 }

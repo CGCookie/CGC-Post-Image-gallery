@@ -61,7 +61,7 @@ function pig_sidebar_featured_images_widget( $number = 6 ) {
 				$output .= '</li>';
 				$count++;
 
-				if( $count == number ) break; // stop at requested amount in case the amount stored is greater
+				if( $count == $number ) break; // stop at requested amount in case the amount stored is greater
 			}
 		$output .= '</ul>';
 		$output .= '<a href="' . esc_attr( get_bloginfo( 'url' ) ) . '/gallery" class="view-more">View All Images &raquo;</a>';
