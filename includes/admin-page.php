@@ -1,5 +1,6 @@
 <div class="wrap">
 	<h2><?php _e( 'Image Repair', 'pig' ); ?></h2>
+	<?php echo'<pre>';var_dump($images);echo'</pre>'; ?>
 	<?php if( $images->have_posts() ): ?>
 		<form method="post" action="<?php echo get_current_screen(); ?>">
 			<table class="wide-fat">

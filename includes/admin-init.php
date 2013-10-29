@@ -16,7 +16,7 @@ function pig_admin_image_repair(){
 			array(
 				'key' => '_pig_image_404',
 				'compare' => '!=',
-				'value' => ''
+				'value' => 'CGCOOKIE'
 			)
 		)
 	) );
