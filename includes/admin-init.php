@@ -8,12 +8,9 @@ function pig_admin_menu(){
 
 function pig_admin_image_repair(){
 
-	ini_set( 'display_errors', '1');
-	error_reporting(E_ALL);
-
 	$images = new WP_Query( array(
 		'post_type' => 'images',
-		'posts_per_page' => '-1',
+		'posts_per_page' => '50',
 		'meta_query' => array(
 			array(
 				'meta_key' => '_pig_image_404',
@@ -22,10 +19,6 @@ function pig_admin_image_repair(){
 			)
 		)
 	) );
-
-
-	echo'<pre>';var_dump($images);echo'</pre>';
-	exit();
 
 	include( 'admin-page.php' );
 }
