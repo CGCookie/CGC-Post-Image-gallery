@@ -42,34 +42,29 @@ function pig_get_image( $size = 'full' ) {
 	$image = wp_get_attachment_image_src( $thumb, $size );
 
 	if ( ! $image && $size != 'full' ){
-		echo '1';
 		$image = wp_get_attachment_image_src( $thumb, 'full' );
 		$resize = true;
 	}
 
 	if( $image ) {
-		echo '2';
 		$src = $image[0];
 		$headers = @get_headers( $src );
 		$exists = (strpos( $headers[0], '404' ) === false);
 		if( $exists ){
 			if( $resize && function_exists( 'aq_resize' ) ){
-				echo '3';
 				if( $dims = pig_get_thumbnail_size( $size ) )
 					$src = aq_resize( $src, $dims[0], $dims[1], true, true, true );
 			}
 
-			if( $src )
-				return $src;
+			return $src;
 		}
-
-		echo '4';
-
-		$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
-
-		if ( ! $check_flag )
-			$flag = update_post_meta( get_the_ID(), '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
 	}
+
+	$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
+
+	if ( ! $check_flag )
+		$flag = update_post_meta( get_the_ID(), '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
+
 	return false;
 }
 
