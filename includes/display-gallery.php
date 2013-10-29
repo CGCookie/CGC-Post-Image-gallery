@@ -53,7 +53,7 @@ function pig_get_image( $size = 'full' ) {
 		if( $exists ){
 			if( $resize && function_exists( 'aq_resize' ) ){
 				if( $dims = pig_get_thumbnail_size( $size ) )
-					$src = aq_resize( $src, $dims[0], $dims[1], true );
+					$src = aq_resize( $src, $dims[0], $dims[1], true, true, true );
 			}
 			return $src;
 		}
