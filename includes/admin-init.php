@@ -3,7 +3,7 @@
 add_action( 'admin_menu', 'pig_admin_menu' );
 
 function pig_admin_menu(){
-	add_media_page( 'Image Repair', 'Image Repair', 'delete_posts', 'pig-image-repair', 'pig_admin_image_repair' );
+	add_media_page( __( 'Image Repair', 'pig' ), __( 'Image Repair', 'pig' ), 'delete_posts', 'pig-image-repair', 'pig_admin_image_repair' );
 }
 
 function pig_admin_image_repair(){
