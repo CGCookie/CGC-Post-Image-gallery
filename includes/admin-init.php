@@ -36,13 +36,15 @@ function pig_admin_image_repair(){
 
 	$pagination = '<div class="tablenav-pages">';
 		$pagination .= '<span class="displaying-num">' . $images->post_count . ' items</span>';
-		$pagination .= '<span class="pagination-links">';
-			$pagination .= '<a class="first-page' . ($current_page == 1 ? ' disabled' : '') . '" title="Go to the first page" href="' . $first . '">&laquo;</a>';
-			$pagination .= '<a class="prev-page' . ($current_page == 1 ? ' disabled' : '') . '" title="Go to the previous page" href="' . $prev . '">&lsaquo;</a>';
-			$pagination .= ' <span class="paging-input">' . $current_page . ' of <span class="total-pages">' . $pages . '</span></span> ';
-			$pagination .= '<a class="next-page' . ($current_page == $pages ? ' disabled' : '') . '" title="Go to the next page" href="' . $next . '">&rsaquo;</a>';
-			$pagination .= '<a class="last-page' . ($current_page == $pages ? ' disabled' : '') . '" title="Go to the last page" href="' . $last . '">&raquo;</a>';
-		$pagination .= '</span>';
+		if( $pages > 1){
+			$pagination .= '<span class="pagination-links">';
+				$pagination .= '<a class="first-page' . ($current_page == 1 ? ' disabled' : '') . '" title="Go to the first page" href="' . $first . '">&laquo;</a>';
+				$pagination .= '<a class="prev-page' . ($current_page == 1 ? ' disabled' : '') . '" title="Go to the previous page" href="' . $prev . '">&lsaquo;</a>';
+				$pagination .= ' <span class="paging-input">' . $current_page . ' of <span class="total-pages">' . $pages . '</span></span> ';
+				$pagination .= '<a class="next-page' . ($current_page == $pages ? ' disabled' : '') . '" title="Go to the next page" href="' . $next . '">&rsaquo;</a>';
+				$pagination .= '<a class="last-page' . ($current_page == $pages ? ' disabled' : '') . '" title="Go to the last page" href="' . $last . '">&raquo;</a>';
+			$pagination .= '</span>';
+		}
 	$pagination .= '</div>';
 	$pagination .= '<br class="clear">';
 
