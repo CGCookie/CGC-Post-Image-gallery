@@ -102,3 +102,20 @@ function pig_src_exists( $src ){
 
     return ( $code == 200 );
 }
+
+function pig_remove_404_images( $q ){
+	if( $q->is_main_query() && $q->get('post_type') == 'images' ){
+		if( ! is_array( $q->meta_query ) )
+			$q->meta_query = array();
+
+		$q->meta_query[] = array(
+			'key' => '_pig_image_404',
+			'compare' => 'NOT EXISTS',
+			'value' => 'CGCOOKIE'
+		);
+	}
+
+	return $q;
+}
+
+add_filter( 'pre_get_posts', 'pig_remove_404_images' );
