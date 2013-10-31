@@ -104,7 +104,7 @@ function pig_process_image_edit() {
 
 				wp_delete_post( $image_id );
 
-				if( ! empty( $file_id ) )
+				if( ! empty( $file_id ) && ! is_object( $file_id ) ) // could be a WP_Error
 					wp_delete_attachment( $file_id );
 
 				restore_current_blog();
