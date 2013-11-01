@@ -20,7 +20,7 @@ function pig_process_image_edit() {
 			$name     			= strip_tags( stripslashes( $_POST['pig-image-title'] ) );   // get the name of the image
 			$desc    			= strip_tags( stripslashes( $_POST['pig-image-desc'] ) );   // get the image description
 			$mature    			= strip_tags( stripslashes( $_POST['pig-image-mature'] ) );   // get the image maturity
-			$url                = network_home_url( '/dashboard/' );
+			$url                = isset( $_POST['pig-redirect-to'] ) && $_POST['pig-redirect-to'] ? sanitize_text_field( $_POST['pig-redirect-to'] ) : network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
 			if ( !$name || $name == '' ) {
@@ -78,7 +78,7 @@ function pig_process_image_edit() {
 			// delete an image
 			$image_id    		= strip_tags( stripslashes( $_POST['pig-image-id'] ) );   // get the image ID on the main site
 			$site_id    		= strip_tags( stripslashes( $_POST['pig-subsite-id'] ) );   // get the ID of the site the image belongs to
-			$url                = network_home_url( '/dashboard/' );
+			$url                = isset( $_POST['pig-delete-redirect-to'] ) && $_POST['pig-delete-redirect-to'] ? sanitize_text_field( $_POST['pig-delete-redirect-to'] ) : network_home_url( '/dashboard/' );
 			$error    			= NULL;
 
 			if ( ! $image_id ) {
@@ -116,12 +116,38 @@ function pig_process_image_edit() {
 				}
 
 				header( "Location: " . $url . '?image-removed=1#manage_images' );
+				exit();
 
 			} else {
 				// if there's an error
 				header( "Location: " . $url . '?image-removed=0#manage_images' );
+				exit();
+
 			}
 		}
 	}
 }
 add_action( 'init', 'pig_process_image_edit', 999 );
+
+/**
+ * pig_handle_notices()
+ *
+ * @return void
+ */
+function pig_handle_notices(){
+	$updated = isset( $_GET['image-updated'] ) ? $_GET['image-updated'] : false;
+	$removed = isset( $_GET['image-removed'] ) ? $_GET['image-removed'] : false;
+
+	if( $updated !== false ){
+		$type = $updated ? 'success' : 'error';
+		$message = $updated ? __( 'Your image was updated.', 'cgc-pig' ) : __( 'There was a problem updating the image.', 'cgc-pig' );
+		cgc_add_notice( $message, $type );
+	}
+
+	if( $removed !== false ){
+		$type = $removed ? 'success' : 'error';
+		$message = $removed ? __( 'Your image was removed.', 'cgc-pig' ) : __( 'There was a problem removing the image.', 'cgc-pig' );
+		cgc_add_notice( $message, $type );
+	}
+}
+add_action( 'cgc_notices', 'pig_handle_notices' );
