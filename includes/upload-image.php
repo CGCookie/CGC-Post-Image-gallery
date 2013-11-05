@@ -143,3 +143,9 @@ function pig_upload_image() {
 	}
 }
 add_action( 'init', 'pig_upload_image' );
+
+function pig_sanitize_filename( $name ){
+	$name = str_relace( '..', '.', $name );
+	return $name;
+}
+add_filter( 'sanitize_file_name', 'pig_sanitize_filename' );
