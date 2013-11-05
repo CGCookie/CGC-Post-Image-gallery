@@ -30,6 +30,7 @@ define( 'CGCPIG_DIR', plugin_dir_url( __FILE__ ) );
 /*****************************************
 Includes
 *****************************************/
+
 if( is_admin() ) {
 	include( dirname(__FILE__) . '/includes/metabox.php' );
 	include( dirname(__FILE__) . '/includes/columns.php' );
@@ -43,5 +44,4 @@ if( is_admin() ) {
 	include( dirname(__FILE__) . '/includes/submission-form.php' );
 	include( dirname(__FILE__) . '/includes/user-dashboard.php' );
 }
-include( dirname(__FILE__) . '/includes/oembeds.php' );
-include( dirname(__FILE__) . '/includes/post-types.php' );
+include(dirname(__FILE__) . '/includes/post-types.php');

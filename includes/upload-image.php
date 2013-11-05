@@ -44,8 +44,6 @@ function pig_upload_image() {
 		$parent_name = isset( $_POST['pig_post_parent_name'] ) ? sanitize_text_field( $_POST['pig_post_parent_name'] ) : '';
 		$desc = isset( $_POST['pig_image_desc'] ) ? strip_tags( stripslashes( $_POST['pig_image_desc'] ), '<iframe><p><strong><ul><ol><li><em><a>' ) : '';
 		$cat = isset( $_POST['pig_image_cat'] ) ? sanitize_text_field( $_POST['pig_image_cat'] ) : '';
-		$embed_type = isset( $_POST['pig_3d_embed_type'] ) ? sanitize_text_field( $_POST['pig_3d_embed_type'] ) : '';
-		$embed_url = isset( $_POST['pig_3d_url'] ) ? sanitize_text_field( $_POST['pig_3d_url'] ) : '';
 		$can_be_used = isset( $_POST['pig_okay_to_use'] ) && sanitize_text_field( $_POST['pig_okay_to_use'] ) == 1 ? 'yes' : 'no';
 
 		$image = $_FILES['pig_image_file']['name'];
@@ -109,8 +107,6 @@ function pig_upload_image() {
 				update_post_meta( $image_id, 'pig_parent_post_name', $parent_name );
 				update_post_meta( $image_id, 'pig_image_url', $permalink );
 				update_post_meta( $image_id, 'pig_okay_to_use', $can_be_used );
-				update_post_meta( $image_id, 'pig_3d_embed_type', $embed_type );
-				update_post_meta( $image_id, 'pig_3d_url', $embed_url );
 
 				if ( isset( $_POST['pig_mature'] ) && $_POST['pig_mature'] == 1 ) {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
