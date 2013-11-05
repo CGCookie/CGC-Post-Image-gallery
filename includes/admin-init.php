@@ -55,7 +55,7 @@ add_action( 'wp', 'pig_schedule_daily_prune' );
 
 function pig_schedule_daily_prune() {
 	if ( ! wp_next_scheduled( 'pig_daily_prune' ) )
-		wp_schedule_event( strtotime( '3:00 am' ), 'daily', 'pig_daily_prune');
+		wp_schedule_event( strtotime( '3:00 am' ), 'daily', 'pig_daily_prune' );
 }
 
 add_action( 'pig_daily_prune', 'pig_remove_broken_images' );
