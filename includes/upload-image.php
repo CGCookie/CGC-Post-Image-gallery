@@ -14,7 +14,8 @@ function pig_get_extension( $str ) {
 function pig_insert_attachment( $file_handler, $post_id, $setthumb='false' ) {
 
 	// check to make sure its a successful upload
-	if ( $_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK ) __return_false();
+	if ( $_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK )
+		return false;
 
 	require_once ABSPATH . "wp-admin" . '/includes/image.php';
 	require_once ABSPATH . "wp-admin" . '/includes/file.php';
@@ -34,18 +35,18 @@ function pig_upload_image() {
 		if ( ! is_user_logged_in() )
 			return;
 
-		if ( isset( $_POST['pig_user_id'] ) ) { $user_id = strip_tags( stripslashes( $_POST['pig_user_id'] ) ); }
-		if ( isset( $_POST['pig_image_name'] ) ) { $name = strip_tags( stripslashes( $_POST['pig_image_name'] ) ); }
-		if ( isset( $_POST['pig_referrer'] ) ) { $url = strip_tags( $_POST['pig_referrer'] ); }
-		if ( isset( $_POST['pig_post_parent_id'] ) ) { $parent_id = strip_tags( stripslashes( $_POST['pig_post_parent_id'] ) ); }
-		if ( isset( $_POST['pig_post_parent_name'] ) ) { $parent_name = strip_tags( stripslashes( $_POST['pig_post_parent_name'] ) ); }
-		if ( isset( $_POST['pig_image_desc'] ) ) { $desc = strip_tags( stripslashes( $_POST['pig_image_desc'] ), '<iframe><p><strong><ul><ol><li><em><a>' ); }
-		if ( isset( $_POST['pig_image_cat'] ) ) { $cat = strip_tags( stripslashes( $_POST['pig_image_cat'] ) ); }
-		if ( isset( $_POST['pig_image_status'] ) ) { $status = strip_tags( stripslashes( $_POST['pig_image_status'] ) ); } else { $status = 'finished'; }
-		if ( isset( $_POST['pig_okay_to_use'] ) ) {
-			$okay_to_use = strip_tags( stripslashes( $_POST['pig_okay_to_use'] ) );
-			if ( $okay_to_use == 1 ) { $can_be_used = 'yes'; } else { $can_be_used = 'no'; }
-		}
+		$user_id = get_current_user_ID();
+		$referer = isset( $_POST['pig_referrer'] ) ? strip_tags( $_POST['pig_referrer'] ) : $_SERVER['HTTP_REFERER'];
+		$status = isset( $_POST['pig_image_status'] ) ? sanitize_text_field( $_POST['pig_image_status'] ) : 'finished';
+
+		$name = isset( $_POST['pig_image_name'] ) ? sanitize_text_field( $_POST['pig_image_name'] ) : '';
+		$parent_id = isset( $_POST['pig_post_parent_id'] ) ? sanitize_text_field( $_POST['pig_post_parent_id'] ) : '';
+		$parent_name = isset( $_POST['pig_post_parent_name'] ) ? sanitize_text_field( $_POST['pig_post_parent_name'] ) : '';
+		$desc = isset( $_POST['pig_image_desc'] ) ? strip_tags( stripslashes( $_POST['pig_image_desc'] ), '<iframe><p><strong><ul><ol><li><em><a>' ) : '';
+		$cat = isset( $_POST['pig_image_cat'] ) ? sanitize_text_field( $_POST['pig_image_cat'] ) : '';
+		$embed_type = isset( $_POST['pig_3d_embed_type'] ) ? sanitize_text_field( $_POST['pig_3d_embed_type'] ) : '';
+		$embed_url = isset( $_POST['pig_3d_url'] ) ? sanitize_text_field( $_POST['pig_3d_url'] ) : '';
+		$can_be_used = isset( $_POST['pig_okay_to_use'] ) && sanitize_text_field( $_POST['pig_okay_to_use'] ) == 1 ? 'yes' : 'no';
 
 		$image = $_FILES['pig_image_file']['name'];
 		$size  = $_FILES['pig_image_file']['size'];
@@ -55,24 +56,24 @@ function pig_upload_image() {
 		// only images 2.2 meg or less are allowed
 
 		if ( $error === UPLOAD_ERR_INI_SIZE || $size > 2200000 ) {
-			wp_redirect( add_query_arg( 'image-error', '1', $_POST['pig_referrer'] ) ); exit;
+			wp_redirect( add_query_arg( 'image-error', '1', $referer ) ); exit;
 		}
 		if ( empty( $name ) ) {
-			wp_redirect( add_query_arg( 'image-error', '2', $_POST['pig_referrer'] ) ); exit;
+			wp_redirect( add_query_arg( 'image-error', '2', $referer ) ); exit;
 		}
 		if ( empty( $desc ) || $desc == 'Describe your image' ) {
-			wp_redirect( add_query_arg( 'image-error', '3', $_POST['pig_referrer'] ) ); exit;
+			wp_redirect( add_query_arg( 'image-error', '3', $referer ) ); exit;
 		}
 		if ( ! $image ) {
-			wp_redirect( add_query_arg( 'image-error', '4', $_POST['pig_referrer'] ) ); exit;
+			wp_redirect( add_query_arg( 'image-error', '4', $referer ) ); exit;
 		}
 		if( $error !== UPLOAD_ERR_OK ){ // let's just catch if it wasn't a successful upload
-			wp_redirect( add_query_arg( array('image-error' => '5', 'image-error-code' => $error), $_POST['pig_referrer'] ) );
+			wp_redirect( add_query_arg( array('image-error' => '5', 'image-error-code' => $error), $referer ) );
 			exit;
 		}
 
 		// everything ok
-		if ( !$error ) {
+		if ( ! $error ) {
 			$image_data = array(
 				'post_title'   => $name,
 				'post_content' => $desc,
@@ -108,7 +109,8 @@ function pig_upload_image() {
 				update_post_meta( $image_id, 'pig_parent_post_name', $parent_name );
 				update_post_meta( $image_id, 'pig_image_url', $permalink );
 				update_post_meta( $image_id, 'pig_okay_to_use', $can_be_used );
-				update_post_meta( $image_id, 'pig_image_status', $status );
+				update_post_meta( $image_id, 'pig_3d_embed_type', $embed_type );
+				update_post_meta( $image_id, 'pig_3d_url', $embed_url );
 
 				if ( isset( $_POST['pig_mature'] ) && $_POST['pig_mature'] == 1 ) {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
@@ -127,10 +129,10 @@ function pig_upload_image() {
 
 				do_action( 'pig_image_uploaded', $image_id, $thumbnail );
 
-				wp_redirect( $url . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
+				wp_redirect( $referer . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
 
 			} else {
-				wp_redirect( $url . '?image-submitted=0&error=6#image-gallery' ); exit;
+				wp_redirect( $referer . '?image-submitted=0&error=6#image-gallery' ); exit;
 			}
 		}
 

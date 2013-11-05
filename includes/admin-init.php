@@ -50,3 +50,40 @@ function pig_admin_image_repair(){
 
 	include( 'admin-page.php' );
 }
+
+add_action( 'wp', 'pig_schedule_daily_prune' );
+
+function pig_schedule_daily_prune() {
+	if ( ! wp_next_scheduled( 'pig_daily_prune' ) )
+		wp_schedule_event( strtotime( '3:00 am' ), 'daily', 'pig_daily_prune' );
+}
+
+add_action( 'pig_daily_prune', 'pig_remove_broken_images' );
+
+function pig_remove_broken_images() {
+	$current_time = current_time( 'timestamp' );
+	$images = new WP_Query( array(
+		'post_type' => 'images',
+		'posts_per_page' => $limit,
+		'offset' => $offset,
+		'post_status' => 'publish',
+		'meta_query' => array(
+			array(
+				'key' => '_pig_image_404',
+				'compare' => '<=',
+				'value' => $current_time
+			)
+		)
+	) );
+
+	while( $images->have_posts() ): $images->the_post();
+		// double check to make sure the meta value is present and fits the requirements
+		$expire_time = get_post_meta( get_the_ID(), '_pig_image_404', true );
+
+		if( $expire_time && $expire_time <= $current_time ){
+			wp_delete_post( get_the_ID(), true );
+		}
+
+	endwhile;
+	wp_reset_postdata();
+}

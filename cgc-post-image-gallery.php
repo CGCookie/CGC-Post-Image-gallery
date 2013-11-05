@@ -42,4 +42,5 @@ if(is_admin()) {
 	include(dirname(__FILE__) . '/includes/submission-form.php');
 	include(dirname(__FILE__) . '/includes/user-dashboard.php');
 }
+include(dirname(__FILE__) . '/includes/oembeds.php');
 include(dirname(__FILE__) . '/includes/post-types.php');
