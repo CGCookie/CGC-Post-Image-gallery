@@ -6,26 +6,10 @@
 function pig_submission_form() {
 	global $pig_base_dir, $current_user;
 
+	wp_enqueue_script( 'pig-scripts', CGCPIG_DIR . 'includes/js/scripts.js', array( 'jquery' ) );
+
 	get_currentuserinfo();
 	$form = '';
-
-	$form .= '
-	<script type="text/javascript">
-		//<![CDATA[
-		jQuery(function($){
-			$("#pig_image_desc").focus(function() {
-				if($(this).val() == "Describe your image") {
-					$(this).val("");
-				}
-			});
-			$("#pig_submit").click(function() {
-				$(this).attr("disabled", "disabled");
-				$("#pig_submission").submit();
-			});
-		});
-		//]]>
-	</script>';
-
 
 	// output form HTML
 	$form .= '<form id="pig_submission" action="" method="POST" enctype="multipart/form-data">';
@@ -127,66 +111,11 @@ add_shortcode('upload_image_form', 'pig_submission_form');
 function pig_gallery_submission_form() {
 	global $pig_base_dir, $current_user;
 
+	wp_enqueue_script( 'pig-scripts', CGCPIG_DIR . 'includes/js/scripts.js', array( 'jquery' ) );
+
 	get_currentuserinfo();
 
 	$form = '';
-
-	$form .= '
-	<script type="text/javascript">
-		//<![CDATA[
-		jQuery(function($){
-			$.validator.addMethod("notEqual", function(value, element, param) {
-			  return this.optional(element) || value != param;
-			});
-
-			$("#pig_image_desc").focus(function() {
-				if($(this).val() == "Image Description") {
-					$(this).val("");
-				}
-			});
-			$(".pig_checkbox_wrapper a").click(function(e) {
-				e.preventDefault();
-				if($(this).hasClass("okay")) {
-					$(this).removeClass("okay");
-					$(this).parent().find("input").val(0);
-				} else {
-					$(this).addClass("okay");
-					$(this).parent().find("input").val(1);
-				}
-			});
-			$("#pig_gallery_submission").validate({
-				ignore: ".ignore",
-				debug: true,
-				success: function(label) {
-					label.addClass("valid");
-				},
-				rules: {
-					pig_image_name: {
-						required: true,
-						maxlength: 55
-					},
-					pig_image_desc: {
-						required: true,
-						minlength: 15,
-						maxlength: 1000,
-						notEqual: "Image Description"
-					},
-					pig_image_file: {
-						required: true
-					},
-					pig_agreement: {
-						required: true,
-						notEqual: 0
-					}
-				},
-				submitHandler: function(form) {
-					$("#pig_submit").attr("disabled", "disabled");
-					form.submit();
-				}
-			});
-		});
-		//]]>
-	</script>';
 
 		// output form HTML
 	if(is_user_logged_in()) {

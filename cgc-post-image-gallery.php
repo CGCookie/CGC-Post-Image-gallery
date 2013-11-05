@@ -25,22 +25,23 @@ global variables and CONSTANTS
 
 // plugin prefix
 $pig_prefix = 'pig_';
+define( 'CGCPIG_DIR', plugin_dir_url( __FILE__ ) );
 
 /*****************************************
 Includes
 *****************************************/
-if(is_admin()) {
-	include(dirname(__FILE__) . '/includes/metabox.php');
-	include(dirname(__FILE__) . '/includes/columns.php');
-	include(dirname(__FILE__) . '/includes/admin-init.php');
+if( is_admin() ) {
+	include( dirname(__FILE__) . '/includes/metabox.php' );
+	include( dirname(__FILE__) . '/includes/columns.php' );
+	include( dirname(__FILE__) . '/includes/admin-init.php' );
 } else {
-	include(dirname(__FILE__) . '/includes/upload-image.php');
-	include(dirname(__FILE__) . '/includes/display-gallery.php');
-	include(dirname(__FILE__) . '/includes/process-image-edit.php');
-	include(dirname(__FILE__) . '/includes/widgets.php');
-	//include(dirname(__FILE__) . '/includes/scripts.php');
-	include(dirname(__FILE__) . '/includes/submission-form.php');
-	include(dirname(__FILE__) . '/includes/user-dashboard.php');
+	include( dirname(__FILE__) . '/includes/upload-image.php' );
+	include( dirname(__FILE__) . '/includes/display-gallery.php' );
+	include( dirname(__FILE__) . '/includes/process-image-edit.php' );
+	include( dirname(__FILE__) . '/includes/widgets.php' );
+	//include( dirname(__FILE__) . '/includes/scripts.php' );
+	include( dirname(__FILE__) . '/includes/submission-form.php' );
+	include( dirname(__FILE__) . '/includes/user-dashboard.php' );
 }
-include(dirname(__FILE__) . '/includes/oembeds.php');
-include(dirname(__FILE__) . '/includes/post-types.php');
+include( dirname(__FILE__) . '/includes/oembeds.php' );
+include( dirname(__FILE__) . '/includes/post-types.php' );
