@@ -14,13 +14,14 @@ function pig_enable_sketchfab_oembed(){
 
 function pig_embed_sketchfab( $matches, $attr, $url, $rawattr ){
 	/* <iframe frameborder="0" height="480" width="854" allowFullScreen webkitallowfullscreen="true" mozallowfullscreen="true" src="http://sketchfab.com/m4jig20?autostart=0&transparent=0&autospin=0&controls=1"></iframe> */
-	// fetch contents of $url to get value in hidden input classname .viewer-hud-model-url
-	// $embed_key = wp_remote_get()...
-	$embed = sprintf('<iframe frameborder="0" height="%3$s" width="%2$s" allowFullScreen webkitallowfullscreen="true" mozallowfullscreen="true" src="http://sketchfab.com/%1$s?autostart=0&transparent=0&autospin=0&controls=1"></iframe>',
-		esc_attr( $embed_key ),
-		esc_attr( $matches[1] ),
-		esc_attr( $matches[2] )
-	);
+	$embed_key = pig_get_sketchfab_embed_key( $url );
+	if( $embed_key ){
+		$embed = sprintf('<iframe frameborder="0" height="%3$s" width="%2$s" allowFullScreen webkitallowfullscreen="true" mozallowfullscreen="true" src="http://sketchfab.com/%1$s?autostart=0&transparent=0&autospin=0&controls=1"></iframe>',
+			esc_attr( $embed_key ),
+			esc_attr( $matches[1] ),
+			esc_attr( $matches[2] )
+		);
+	}
 
 	return apply_filters( 'embed_sketchfab', $embed, $matches, $attr, $url, $rawattr );
 }
@@ -41,4 +42,20 @@ function pig_embed_p3din( $matches, $attr, $url, $rawattr ){
 	);
 
 	return apply_filters( 'embed_p3din', $embed, $matches, $attr, $url, $rawattr );
+}
+
+function pig_get_sketchfab_embed_key( $url ){
+	// fetch contents of $url to get value in hidden input classname .viewer-hud-model-url
+	$contents = wp_remote_get( $url );
+	$dom = new DomDocument();
+	$dom->loadHTML( $contents['body'] );
+	$finder = new DomXPath( $dom );
+	$nodes = $finder->query("//input[contains(concat(' ', normalize-space(@class), ' '), viewer-hud-model-url)]");
+
+	foreach( $nodes as $node ){
+		if( $node->nodeValue )
+			return $node->nodeValue;
+	}
+
+	return false;
 }

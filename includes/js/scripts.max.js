@@ -5,9 +5,9 @@ jQuery(function($){
 			$(this).val("");
 		}
 	});
-	$("#pig_submit").click(function() {
+	$("#pig_gallery_submission").submit(function() {
 		$(this).attr("disabled", "disabled");
-		$("#pig_submission").submit();
+		return true;
 	});
 
 	$.validator.addMethod("notEqual", function(value, element, param) {
@@ -31,7 +31,7 @@ jQuery(function($){
 	});
 	$("#pig_gallery_submission").validate({
 		ignore: ".ignore",
-		debug: true,
+		debug: false,
 		success: function(label) {
 			label.addClass("valid");
 		},
@@ -52,6 +52,12 @@ jQuery(function($){
 			pig_agreement: {
 				required: true,
 				notEqual: 0
+			},
+			pig_3d_embed_type: {
+				required: false
+			},
+			pig_3d_url: {
+				required: false
 			}
 		},
 		submitHandler: function(form) {
