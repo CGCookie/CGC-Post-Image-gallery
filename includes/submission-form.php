@@ -263,15 +263,6 @@ function pig_gallery_submission_form() {
 				$form .= '<span class="form-description">.jpg or .png. Less than 1600px. <strong>Max file size: 2mb</strong></span>';
 			$form .= '</p>';
 
-			$form .= '<p>';
-				$form .= '<label for="pig_3d_embed_type">Would you like to embed a 3D Model Viewer?</label>';
-				$form .= '<select name="pig_3d_embed_type" class="ignore" id="pig_3d_embed_type">';
-					$form .= '<option value="sketchfab" class="sketchfab">SketchFab</option>';
-					$form .= '<option value="p3din" class="p3din">p3d.in</option>';
-				$form .= '</select>';
-				$form .= '<input type="text" name="pig_3d_url" id="pig_3d_url" placeholder="3D Model URL"/>';
-			$form .= '</p>';
-
 			$form .= '<div class="submission-guidelines-agreement">';
 				$form .= '<div class="pig_checkbox_wrapper" id="pig_mature_box">';
 					$form .= '<a href="#" id="pig_mature_link">';
