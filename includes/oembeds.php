@@ -12,14 +12,18 @@ function pig_enable_sketchfab_oembed(){
 	wp_embed_register_handler( 'sketchfab', $regex, 'pig_embed_sketchfab' );
 }
 
-function pig_embed_sketchfab( $matches, $attr, $url, $rawattr ){
+function pig_embed_sketchfab( $matches, $attr, $url, $rawattr = '' ){
 	/* <iframe frameborder="0" height="480" width="854" allowFullScreen webkitallowfullscreen="true" mozallowfullscreen="true" src="http://sketchfab.com/m4jig20?autostart=0&transparent=0&autospin=0&controls=1"></iframe> */
 	$embed_key = pig_get_sketchfab_embed_key( $url );
+	$embed = '';
+
 	if( $embed_key ){
+		$width = count( $matches ) >= 2 && $matches[1] ? $matches[1] : '100%';
+		$height = count( $matches ) >= 3 && $matches[2] ? $matches[2] : '400';
 		$embed = sprintf('<iframe frameborder="0" height="%3$s" width="%2$s" allowFullScreen webkitallowfullscreen="true" mozallowfullscreen="true" src="http://sketchfab.com/%1$s?autostart=0&transparent=0&autospin=0&controls=1"></iframe>',
 			esc_attr( $embed_key ),
-			esc_attr( $matches[1] ),
-			esc_attr( $matches[2] )
+			esc_attr( $width ),
+			esc_attr( $height )
 		);
 	}
 
@@ -46,15 +50,28 @@ function pig_embed_p3din( $matches, $attr, $url, $rawattr ){
 
 function pig_get_sketchfab_embed_key( $url ){
 	// fetch contents of $url to get value in hidden input classname .viewer-hud-model-url
+	$url = str_replace( 'https://', 'http://', $url );
 	$contents = wp_remote_get( $url );
-	$dom = new DomDocument();
-	$dom->loadHTML( $contents['body'] );
-	$finder = new DomXPath( $dom );
-	$nodes = $finder->query("//input[contains(concat(' ', normalize-space(@class), ' '), viewer-hud-model-url)]");
 
-	foreach( $nodes as $node ){
-		if( $node->nodeValue )
-			return $node->nodeValue;
+	if( is_object( $contents ) ){
+		echo $contents->get_error_message( $contents->get_error_code() );
+		return false;
+	}
+
+	if( is_string( $contents['body'] ) ) {
+		$dom = new DomDocument();
+		libxml_use_internal_errors(true);
+		$dom->loadHTML( $contents['body'] );
+		libxml_clear_errors();
+		$finder = new DOMXPath( $dom );
+		$nodes = $finder->query("//input[contains(concat(' ', normalize-space(@class), ' '), viewer-hud-model-url)]");
+		foreach( $nodes as $node ){
+			if( $node->getAttribute( 'value' ) ){ // we want the last element
+				$value = $node->getAttribute( 'value' );
+			}
+		}
+		if( $value )
+			return str_replace( 'http://sketchfab.com/', '', $value );
 	}
 
 	return false;
