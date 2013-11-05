@@ -266,6 +266,7 @@ function pig_gallery_submission_form() {
 			$form .= '<p>';
 				$form .= '<label for="pig_3d_embed_type">Would you like to embed a 3D Model Viewer?</label>';
 				$form .= '<select name="pig_3d_embed_type" class="ignore" id="pig_3d_embed_type">';
+					$form .= '<option value="">None</option>';
 					$form .= '<option value="sketchfab" class="sketchfab">SketchFab</option>';
 					$form .= '<option value="p3din" class="p3din">p3d.in</option>';
 				$form .= '</select>';
