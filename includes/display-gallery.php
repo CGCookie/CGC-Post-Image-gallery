@@ -86,10 +86,9 @@ function pig_src_exists( $src ){
 
 	$size = @getimagesize( $src );
 
-	if( $size !== false )
-		return true;
+	return ( $size !== false );
 
-	$headers = @get_headers( $src );
+	/*$headers = @get_headers( $src );
 
 	return ( strpos( $headers[0], '404' ) === false );
 
@@ -100,7 +99,7 @@ function pig_src_exists( $src ){
     $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
     curl_close($ch);
 
-    return ( $code == 200 );
+    return ( $code == 200 );*/
 }
 
 function pig_remove_404_images( $q ){
@@ -118,4 +117,4 @@ function pig_remove_404_images( $q ){
 	return $q;
 }
 
-add_filter( 'pre_get_posts', 'pig_remove_404_images' );
+#add_filter( 'pre_get_posts', 'pig_remove_404_images' );
