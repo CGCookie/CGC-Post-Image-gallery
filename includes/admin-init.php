@@ -17,6 +17,8 @@ function pig_admin_image_repair(){
 		'posts_per_page' => $limit,
 		'offset' => $offset,
 		'post_status' => 'publish',
+		'orderby' => 'meta_value_num',
+		'meta_key' => '_pig_image_404',
 		'meta_query' => array(
 			array(
 				'key' => '_pig_image_404',

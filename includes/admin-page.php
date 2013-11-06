@@ -8,6 +8,7 @@
 					<tr>
 						<th>Post ID</th>
 						<th>Post Title</th>
+						<th>Reported Date</th>
 						<th>Purge Date</th>
 						<th colspan="2" class="actions">Actions</th>
 					</tr>
@@ -15,10 +16,12 @@
 				<tbody>
 					<?php $alternate = true;
 					while( $images->have_posts() ): $images->the_post();
-						$expires = get_post_meta( get_the_ID(), '_pig_image_404', true ); ?>
+						$expires  = get_post_meta( get_the_ID(), '_pig_image_404', true );
+						$reported = $expires - ( $expires - strtotime( '-30 days' ) ); ?>
 						<tr<?php if( $alternate ) echo ' class="alternate"'; ?>>
 							<td><?php the_ID(); ?>
 							<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
+							<td><?php echo date( 'n/j/Y g:i a', $reported ); ?></td>
 							<td><?php echo date( 'n/j/Y g:i a', $expires ); ?></td>
 							<td><a href="<?php echo get_edit_post_link( get_the_ID() ); ?>">Edit</a></td>
 							<td><a href="<?php echo get_delete_post_link( get_the_ID() ); ?>">Delete</a></td>
