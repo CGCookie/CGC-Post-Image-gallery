@@ -17,7 +17,7 @@
 					<?php $alternate = true;
 					while( $images->have_posts() ): $images->the_post();
 						$expires  = get_post_meta( get_the_ID(), '_pig_image_404', true );
-						$reported = $expires - ( $expires - strtotime( '-30 days' ) ); ?>
+						$reported = $expires - ( $expires - strtotime( '-30 days', $expires ) ); ?>
 						<tr<?php if( $alternate ) echo ' class="alternate"'; ?>>
 							<td><?php the_ID(); ?>
 							<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
