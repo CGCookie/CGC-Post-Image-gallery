@@ -51,10 +51,7 @@ function pig_get_image( $size = 'full' ) {
 		return $image[0];
 	}
 
-	$check_flag = get_post_meta( get_the_ID(), '_pig_image_404', true );
-
-	if ( ! $check_flag )
-		$flag = update_post_meta( get_the_ID(), '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
+	pig_flag_for_removal();
 
 	return false;
 }
@@ -118,3 +115,39 @@ function pig_remove_404_images( $q ){
 }
 
 #add_filter( 'pre_get_posts', 'pig_remove_404_images' );
+
+function pig_check_featured_image(){
+	$fourofour = false;
+	$post_id = get_queried_object_id();
+	if( get_post_type( $post_id ) == 'images' ){
+		$featured = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
+		if( ! $featured ){
+			$fourofour = true;
+		} else {
+			$exists = pig_src_exists( $featured[0] );
+			if( ! $exists )
+				$fourofour = true;
+		}
+	}
+
+	if( $fourofour ){
+		pig_flag_for_removal( $post_id );
+
+		status_header(404);
+		nocache_headers();
+		include( get_404_template() );
+		exit;
+	}
+}
+
+add_action( 'template_redirect', 'pig_check_featured_image' );
+
+function pig_flag_for_removal( $id = NULL ){
+	if( ! $id )
+		$id = get_the_ID();
+
+	$check_flag = get_post_meta( $id, '_pig_image_404', true );
+
+	if ( ! $check_flag )
+		$flag = update_post_meta( $id, '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
+}
