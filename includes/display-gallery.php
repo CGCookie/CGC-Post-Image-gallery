@@ -81,15 +81,23 @@ function pig_src_exists( $src ){
 	if( ! $src )
 		return false;
 
-	$size = @getimagesize( $src );
+	$blog_id = get_current_blog_id();
+	$src_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/blogs.dir/' . $blog_id, $src );
 
-	return ( $size !== false );
+	return file_exists( $src_path );
 
+	/* alternate check 1 */
+	/*$size = @getimagesize( $src );
+
+	return ( $size !== false );*/
+
+	/* alternate check 2 */
 	/*$headers = @get_headers( $src );
 
-	return ( strpos( $headers[0], '404' ) === false );
+	return ( strpos( $headers[0], '404' ) === false );*/
 
-	$ch = curl_init( $src );
+	/* alternate check 3 */
+	/*$ch = curl_init( $src );
     curl_setopt( $ch, CURLOPT_NOBODY, true ); // prevents any content from being downloaded
     curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
     curl_exec( $ch );
@@ -117,9 +125,13 @@ function pig_remove_404_images( $q ){
 #add_filter( 'pre_get_posts', 'pig_remove_404_images' );
 
 function pig_check_featured_image(){
+	if( is_404() )
+		return;
+
 	$fourofour = false;
-	$post_id = get_queried_object_id();
-	if( get_post_type( $post_id ) == 'images' ){
+
+	if( is_singular( 'images' ) ){
+		$post_id = get_queried_object_id();
 		$featured = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
 		if( ! $featured ){
 			$fourofour = true;
@@ -133,7 +145,7 @@ function pig_check_featured_image(){
 	if( $fourofour ){
 		pig_flag_for_removal( $post_id );
 
-		status_header(404);
+		status_header( 404 );
 		nocache_headers();
 		include( get_404_template() );
 		exit;
