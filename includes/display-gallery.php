@@ -82,14 +82,7 @@ function pig_src_exists( $src ){
 		return false;
 
 	$blog_id = get_current_blog_id();
-	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content/', WP_CONTENT_DIR , $src );
-
-	echo '<!--
-	SRC: ' . $src . '
-	SRC_PATH: ' . $src_path . '
-	-->';
-
-	return true;
+	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content', WP_CONTENT_DIR , $src );
 
 	return ( file_exists( $src_path ) || file_exists( $alt_path ) );
 
