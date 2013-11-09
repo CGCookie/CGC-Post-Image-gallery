@@ -83,8 +83,9 @@ function pig_src_exists( $src ){
 
 	$blog_id = get_current_blog_id();
 	$src_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/blogs.dir/' . $blog_id, $src );
+	$alt_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/uploads/', $src );
 
-	return file_exists( $src_path );
+	return ( file_exists( $src_path ) || file_exists( $alt_path ) );
 
 	/* alternate check 1 */
 	/*$size = @getimagesize( $src );
