@@ -81,8 +81,6 @@ function pig_src_exists( $src ){
 	if( ! $src )
 		return false;
 
-	return true;
-
 	$blog_id = get_current_blog_id();
 	$src_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/blogs.dir/' . $blog_id, $src );
 	$alt_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/uploads/', $src );
