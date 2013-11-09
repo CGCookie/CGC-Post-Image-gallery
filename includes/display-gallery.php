@@ -86,25 +86,6 @@ function pig_src_exists( $src ){
 
 	return ( file_exists( $src_path ) || file_exists( $alt_path ) );
 
-	/* alternate check 1 */
-	/*$size = @getimagesize( $src );
-
-	return ( $size !== false );*/
-
-	/* alternate check 2 */
-	/*$headers = @get_headers( $src );
-
-	return ( strpos( $headers[0], '404' ) === false );*/
-
-	/* alternate check 3 */
-	/*$ch = curl_init( $src );
-    curl_setopt( $ch, CURLOPT_NOBODY, true ); // prevents any content from being downloaded
-    curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
-    curl_exec( $ch );
-    $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-    curl_close($ch);
-
-    return ( $code == 200 );*/
 }
 
 function pig_remove_404_images( $q ){
@@ -122,7 +103,7 @@ function pig_remove_404_images( $q ){
 	return $q;
 }
 
-#add_filter( 'pre_get_posts', 'pig_remove_404_images' );
+add_filter( 'pre_get_posts', 'pig_remove_404_images' );
 
 function pig_check_featured_image(){
 	if( is_404() )
