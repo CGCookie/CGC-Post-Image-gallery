@@ -125,7 +125,7 @@ function pig_check_featured_image(){
 
 	if( $fourofour ){
 		pig_flag_for_removal( $post_id );
-
+		add_filter( 'body_class', 'pig_error404_body_class' );
 		status_header( 404 );
 		nocache_headers();
 		include( get_404_template() );
@@ -143,4 +143,9 @@ function pig_flag_for_removal( $id = NULL ){
 
 	if ( ! $check_flag )
 		$flag = update_post_meta( $id, '_pig_image_404', current_time( 'timestamp' ) + ( 60 * 60 * 24 * 30 ) ); // flag for removal in 30 days.
+}
+
+function pig_error404_body_class( $classes ){
+	$classes[] = 'error404';
+	return $classes;
 }
