@@ -85,6 +85,14 @@ function pig_src_exists( $src ){
 	$src_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/blogs.dir/' . $blog_id, $src );
 	$alt_path = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR . '/uploads/', $src );
 
+	echo '<!--
+	SRC: ' . $src . '
+	SRC_PATH: ' . $src_path . '
+	ALT_PATH: ' . $alt_path . '
+	-->';
+
+	return true;
+
 	return ( file_exists( $src_path ) || file_exists( $alt_path ) );
 
 	/* alternate check 1 */
