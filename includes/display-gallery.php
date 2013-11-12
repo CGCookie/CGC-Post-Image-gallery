@@ -84,6 +84,10 @@ function pig_src_exists( $src ){
 	$blog_id = get_current_blog_id();
 	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content', WP_CONTENT_DIR , $src );
 
+	echo '<!-- DEBUG:
+	SRC_PATH: ' . $src_path.'
+	-->';
+
 	return file_exists( $src_path );
 
 }
