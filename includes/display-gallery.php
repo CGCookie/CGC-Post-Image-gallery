@@ -85,6 +85,7 @@ function pig_src_exists( $src ){
 	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content', WP_CONTENT_DIR , $src );
 
 	echo '<!-- DEBUG:
+	SRC: ' . $src . '
 	SRC_PATH: ' . $src_path.'
 	-->';
 
