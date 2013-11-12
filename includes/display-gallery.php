@@ -83,27 +83,10 @@ function pig_src_exists( $src ){
 
 	$uploads_dir = wp_upload_dir();
 
-	echo '<!-- ';
-	var_dump($uploads_dir);
-	echo '
-	-->';
+	$path_check1 = str_replace( $uploads_dir['baseurl'], $uploads_dir['basedir'], $src );
+	$path_check2 = str_replace( '/virtualwww/staging.cgcookie.com/', '/www/', $path_check1 );
 
-	$blog_id = get_current_blog_id();
-	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content', WP_CONTENT_DIR, $src );
-	$alt_path1 = str_replace( '/virtualwww/staging.cgcookie.com/', '/www/', $src_path );
-
-	$alt_path2 = str_replace( $uploads_dir['baseurl'], $uploads_dir['basedir'], $src );
-	$alt_path3 = str_replace( '/virtualwww/staging.cgcookie.com/', '/www/', $alt_path2 );
-
-	echo '<!-- DEBUG:
-	SRC: ' . $src . '
-	SRC_PATH: ' . $src_path.'
-	ALT_PATH1: ' . $alt_path1.'
-	ALT_PATH2: ' . $alt_path2.'
-	ALT_PATH3: ' . $alt_path3.'
-	-->';
-
-	return ( file_exists( $src_path ) || file_exists( $alt_path1 ) || file_exists( $alt_path2 ) || file_exists( $alt_path3 ) );
+	return ( file_exists( $path_check1 ) || file_exists( $path_check2 ) );
 
 }
 
