@@ -92,7 +92,7 @@ function pig_src_exists( $src ){
 	$src_path = str_replace( get_site_url( $blog_id ) . '/wp-content', WP_CONTENT_DIR, $src );
 	$alt_path1 = str_replace( '/virtualwww/staging.cgcookie.com/', '/www/', $src_path );
 
-	$alt_path2 = str_replace( get_site_url( $blog_id ), WP_CONTENT_DIR, $src );
+	$alt_path2 = str_replace( $uploads_dir['baseurl'], $uploads_dir['basedir'], $src );
 	$alt_path3 = str_replace( '/virtualwww/staging.cgcookie.com/', '/www/', $alt_path2 );
 
 	echo '<!-- DEBUG:
