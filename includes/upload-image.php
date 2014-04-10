@@ -123,7 +123,7 @@ function pig_upload_image() {
 
 				}
 
-				do_action( 'pig_image_uploaded', $image_id, $thumbnail );
+				do_action( 'pig_image_uploaded', $image_id, $thumbnail, $user_id );
 
 				wp_redirect( $referer . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
 
