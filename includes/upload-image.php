@@ -125,6 +125,18 @@ function pig_upload_image() {
 
 				do_action( 'pig_image_uploaded', $image_id, $thumbnail, $user_id );
 
+				if( class_exists( 'wp_subscribe_reloaded' ) ) {
+
+					$comments_reloaded = new wp_subscribe_reloaded;
+					$image_post   = get_post( $image_id );
+					$author_email = get_the_author_meta( 'user_email', $image_post->post_author );
+
+					if ( ! empty( $author_email ) ) {
+						$comments_reloaded->add_subscription( $image_id, $author_email, 'Y' );
+					}
+
+				}
+
 				wp_redirect( $referer . '?image-submitted=1&image-id=' . $image_id . '#image-gallery' ); exit;
 
 			} else {
