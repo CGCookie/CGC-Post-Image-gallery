@@ -107,6 +107,7 @@ function pig_upload_image() {
 				update_post_meta( $image_id, 'pig_parent_post_name', $parent_name );
 				update_post_meta( $image_id, 'pig_image_url', $permalink );
 				update_post_meta( $image_id, 'pig_okay_to_use', $can_be_used );
+				update_post_meta( $image_id, 'pig_image_status', $status );
 
 				if ( isset( $_POST['pig_mature'] ) && $_POST['pig_mature'] == 1 ) {
 					update_post_meta( $image_id, 'pig_mature', 'on' );
