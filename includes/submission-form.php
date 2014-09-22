@@ -204,12 +204,6 @@ function pig_gallery_submission_form() {
 					$form .= '</a>';
 					$form .= '<input type="hidden" name="pig_agreement" value=""/>';
 				$form .= '</div>';
-				$form .= '<div class="pig_checkbox_wrapper" id="pig_use_image">';
-					$form .= '<a href="#" id="pig_okay_to_use_link">';
-						$form .= '<label class="bold" for="pig_okay_to_use_link"><i class="icon-sign-blank"></i>   Is it okay for CG Cookie to use your image on promotional items on the site? <span>Site banners, header images, etc...</span></label>';
-					$form .= '</a>';
-					$form .= '<input type="hidden" name="pig_okay_to_use" value=""/>';
-				$form .= '</div>';
 
 			$form .= '</div>';
 
