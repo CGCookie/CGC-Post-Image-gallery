@@ -32,7 +32,7 @@ Includes
 *****************************************/
 
 if( is_admin() ) {
-	//include( dirname(__FILE__) . '/includes/metabox.php' );
+	include( dirname(__FILE__) . '/includes/metabox.php' );
 	include( dirname(__FILE__) . '/includes/columns.php' );
 	include( dirname(__FILE__) . '/includes/admin-init.php' );
 } else {
