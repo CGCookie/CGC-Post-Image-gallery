@@ -151,3 +151,25 @@ function pig_error404_body_class( $classes ){
 	$classes[] = 'error404';
 	return $classes;
 }
+
+/**
+*
+*	Get the author of a specific image
+*
+*	Used to set as data attribute on the image so the user cannot love their own image
+*
+*	@param $imageid int id of the image to check for author of
+*/
+function pig_get_author_of_image( $imageid = 0 ) {
+
+	// bail if no imageid supplied
+	if ( empty( $imageid ) )
+		return;
+
+	$auth_id = get_post_field( 'post_author', $imageid );
+
+	if ( $auth_id );
+		return $auth_id;
+
+
+}
